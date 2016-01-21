@@ -12,7 +12,7 @@ namespace fepuseAPI.Models
     public class Partido
     {
         public int Id { get; set; }
-        public int Hora { get; set; }
+        public DateTime DiaYHora { get; set; }        
         public String Sede { get; set; }
         public int GolesLocal { get; set; }
         public int GolesVisitante { get; set; }
@@ -34,7 +34,12 @@ namespace fepuseAPI.Models
         [InverseProperty("EquipoVisitantes")]
         public virtual Equipo EquipoVisitante { get; set; }
 
+        //fpaz: 1 a m con PartidoJugador (muchos)
+        public virtual ICollection<PartidoJugador> JugadoresDelPartido { get; set; } //relacion de partido con el jugador
 
-        //public virtual ICollection<EstadisticasJugador> EstadisticasJugadores { get; set; }
+        //fpaz: 1 a m con arbritos (uno)
+        public int ArbitroId { get; set; }
+        public virtual Arbitro Arbitro { get; set; }
+
     }
 }

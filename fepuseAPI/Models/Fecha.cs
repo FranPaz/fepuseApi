@@ -11,7 +11,7 @@ namespace fepuseAPI.Models
     public class Fecha
     {
         public int Id { get; set; }
-        public DateTime Dia { get; set; }
+        public int NumFecha { get; set; }        
 
         //kikexp: uno a muchos con Fixture
         public int torneoId { get; set; }

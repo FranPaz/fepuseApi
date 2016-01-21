@@ -19,14 +19,14 @@ namespace fepuseAPI.Controllers
         // GET: api/Partidoes
         public IQueryable<Partido> GetPartidoes()
         {
-            return db.Partidoes;
+            return db.Partidos;
         }
 
         // GET: api/Partidoes/5
         [ResponseType(typeof(Partido))]
         public IHttpActionResult GetPartido(int id)
         {
-            Partido partido = db.Partidoes.Find(id);
+            Partido partido = db.Partidos.Find(id);
             if (partido == null)
             {
                 return NotFound();
@@ -79,7 +79,7 @@ namespace fepuseAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Partidoes.Add(partido);
+            db.Partidos.Add(partido);
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = partido.Id }, partido);
@@ -89,13 +89,13 @@ namespace fepuseAPI.Controllers
         [ResponseType(typeof(Partido))]
         public IHttpActionResult DeletePartido(int id)
         {
-            Partido partido = db.Partidoes.Find(id);
+            Partido partido = db.Partidos.Find(id);
             if (partido == null)
             {
                 return NotFound();
             }
 
-            db.Partidoes.Remove(partido);
+            db.Partidos.Remove(partido);
             db.SaveChanges();
 
             return Ok(partido);
@@ -112,7 +112,7 @@ namespace fepuseAPI.Controllers
 
         private bool PartidoExists(int id)
         {
-            return db.Partidoes.Count(e => e.Id == id) > 0;
+            return db.Partidos.Count(e => e.Id == id) > 0;
         }
     }
 }

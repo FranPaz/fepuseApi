@@ -25,17 +25,25 @@ public class FepuseAPI_Context : IdentityDbContext<ApplicationUser>
 
     public System.Data.Entity.DbSet<fepuseAPI.Models.Torneo> Torneos { get; set; }
 
-    public System.Data.Entity.DbSet<fepuseAPI.Models.EstadisticasJugador> EstadisticasJugadors { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.PartidoJugador> EstadisticasJugadors { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.EquipoJugadorTorneo> EquiposJugadorTorneos { get; set; }
 
     public System.Data.Entity.DbSet<fepuseAPI.Models.Fecha> Fechas { get; set; }
 
-    public System.Data.Entity.DbSet<fepuseAPI.Models.Partido> Partidoes { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.Partido> Partidos { get; set; }
 
+    public System.Data.Entity.DbSet<fepuseAPI.Models.Persona> Personas { get; set; }
     public System.Data.Entity.DbSet<fepuseAPI.Models.Equipo> Equipoes { get; set; }
 
     public System.Data.Entity.DbSet<fepuseAPI.Models.Jugador> Jugadors { get; set; }
 
     public System.Data.Entity.DbSet<fepuseAPI.Models.Arbitro> Arbitroes { get; set; }
+
+    public System.Data.Entity.DbSet<fepuseAPI.Models.ImagenEquipo> ImagenesEquipo { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.ImagenLiga> ImagenesLiga { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.ImagenTorneo> ImagenesTorneo { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.ImagenPersona> ImagenesPersona { get; set; }
+
 
     #endregion
 
@@ -43,20 +51,5 @@ public class FepuseAPI_Context : IdentityDbContext<ApplicationUser>
     {
         return new FepuseAPI_Context();
     }
-
-    //protected override void OnModelCreating(DbModelBuilder modelBuilder)
-    //{
-    //    modelBuilder.Entity<Partido>()
-    //                .HasRequired(m => m.EquipoLocal)
-    //                .WithMany(t => t.EquipoLocales)
-    //                .HasForeignKey(m => m.EquipoLocalId)
-    //                .WillCascadeOnDelete(false);
-
-    //    modelBuilder.Entity<Partido>()
-    //                .HasRequired(m => m.EquipoVisitante)
-    //                .WithMany(t => t.EquipoVisitantes)
-    //                .HasForeignKey(m => m.EquipoVisitanteId)
-    //                .WillCascadeOnDelete(false);
-    //}
 
 }

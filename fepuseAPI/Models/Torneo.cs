@@ -14,11 +14,18 @@ namespace fepuseAPI.Models
 
         //kikexp: uno a muchos con Liga
         public int LigaId { get; set; }
-        public virtual Liga Liga { get; set; }
-
-        //public virtual ICollection<Equipo> Equipos { get; set; }
+        public virtual Liga Liga { get; set; }        
 
         //kikexp: uno a muchos con Fecha(muchos)
         public virtual ICollection<Fecha> Fechas { get; set; }
+
+        //fpaz: relacion 1 a m con ImagenLiga (muchos)
+        public virtual ICollection<ImagenTorneo> ImagenesTorneo { get; set; }
+
+        //fpaz: 1 a m con EquipoJugadorTorneo (muchos)
+        public virtual ICollection<EquipoJugadorTorneo> EquiposJugadorTorneos { get; set; }
+
+        //kikexp: uno a muchos con Arbitro(muchos)
+        public virtual ICollection<Arbitro> Arbitros { get; set; }
     }
 }

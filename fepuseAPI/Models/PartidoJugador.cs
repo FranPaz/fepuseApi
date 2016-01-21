@@ -7,20 +7,23 @@ using System.Web;
 namespace fepuseAPI.Models
 {
 
-    public class EstadisticasJugador
+    public class PartidoJugador
     {
         public int Id { get; set; }
-
-        //public int? PartidoId { get; set; }
-        //[InverseProperty("EstadisticasJugadores")]
-        //public virtual Partido Partido { get; set; }
-
-        public int? JugadorId { get; set; }
+        //fpaz: 1 a m con jugador (uno)
+         public int JugadorId { get; set; }
         public virtual Jugador Jugador { get; set; }
+
+        //fpaz: 1 a m con partido (uno)
+        public int PartidoId { get; set; }
+        public virtual Partido Partido { get; set; }
 
         public int Goles { get; set; }
         public int TarjetasAmarillas { get; set; }
         public int TarjetasRojas { get; set; }
+
+        public string InformeArbitro { get; set; }
+        public string ObservacionesAdiconales { get; set; }
 
     }
 }

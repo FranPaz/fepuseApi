@@ -49,7 +49,7 @@ namespace fepuseAPI.Providers
             ClaimsIdentity oAuthIdentity = await user.GenerateUserIdentityAsync(userManager, "JWT");
             //agrego claims adicionales para tener ademas del token, el nombre de usuario y el rol
             // los claim son atributos nombre-valor que dan info sobre el usuario que quiere conectarse
-            oAuthIdentity.AddClaim(new Claim("EmpleadorId", user.LigaId.ToString())); 
+            oAuthIdentity.AddClaim(new Claim("LigaId", user.LigaId.ToString())); 
 
             var ticket = new AuthenticationTicket(oAuthIdentity, null);
 

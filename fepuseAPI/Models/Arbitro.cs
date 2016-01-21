@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Net.Http;
 using System.Web;
@@ -8,18 +9,15 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace fepuseAPI.Models
 {
-    public class Arbitro
+    [Table("Arbitros")]
+    public class Arbitro:Persona
     {
-        public int Id { get; set; }
-        public int Dni { get; set; }
-        public String Nombre { get; set; }
-        public String Apellido { get; set; }
-        public int Telefono { get; set; }
+        //kikexp: uno a muchos con Torneo
+        public int TorneoId { get; set; }
+        public virtual Torneo Torneo { get; set; }
 
-        //kikexp: uno a muchos con Liga
-        public int LigaId { get; set; }
-        public virtual Liga Liga { get; set; }
-
+        //fpaz: 1 a m con partidos
+        public virtual ICollection<Partido> Partidos { get; set; }
 
     }
 }

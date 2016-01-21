@@ -14,16 +14,15 @@ namespace fepuseAPI.Models
         public String Nombre { get; set; }
         public Boolean AlDia { get; set; }
 
-        //kikxp: uno a muchos con Jugador(muchos)
-        public virtual ICollection<Jugador> Jugadores { get; set; }
-
-        public int TorneoId { get; set; }
-        public virtual Torneo Torneo { get; set; }
+        //fpaz: 1 a m con EquipoJugadorTorneo (muchos)
+        public virtual ICollection<EquipoJugadorTorneo> EquiposJugadorTorneos { get; set; } // esta es la relacion entre equipos y torneos, y tambien los jugadores de ese equipo en ese torneo               
 
         //kikxp: muchos a muchos con partido
-
         public virtual ICollection<Partido> EquipoLocales { get; set; }
         public virtual ICollection<Partido> EquipoVisitantes { get; set; }
+
+        //fpaz: relacion 1 a m con ImagenEquipo (muchos)
+        public virtual ICollection<ImagenEquipo> ImagenesEquipo { get; set; }
 
 
     }

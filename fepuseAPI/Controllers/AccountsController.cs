@@ -65,9 +65,6 @@ namespace fepuseAPI.Controllers
 
             try
             {
-                FepuseAPI_Context db = new FepuseAPI_Context();
-                var emp = db.Ligas.Find(createUserModel.LigaId);
-
                 var user = new ApplicationUser()
                 {
                     UserName = createUserModel.Username,
@@ -76,7 +73,10 @@ namespace fepuseAPI.Controllers
                     LastName = createUserModel.LastName,
                     Level = 3,
                     JoinDate = DateTime.Now.Date,
-                    Liga = emp
+                    Liga = new Liga { // fpaz: creo la nueva liga, asociada a la cuenta que se esta creando, con los valores iniciales
+                        Nombre="Nueva Liga"
+
+                    }
                 };
 
                 IdentityResult addUserResult = await this.AppUserManager.CreateAsync(user, createUserModel.Password);
@@ -122,7 +122,7 @@ namespace fepuseAPI.Controllers
                 //we want a 303 with the ability to set location
                 HttpResponseMessage responseMsg = new HttpResponseMessage(HttpStatusCode.RedirectMethod);
                 //seteo la url a la que voy a redirigir y capturar en el frontend
-                responseMsg.Headers.Location = new Uri("http://localhost:50174/#/seguridad/confirm/"); // para desarrollo
+                responseMsg.Headers.Location = new Uri("http://localhost:50174/#/seguridad/confirm"); // para desarrollo
                 //responseMsg.Headers.Location = new Uri("http://vlaboral-test.azurewebsites.net/#/seguridad");
                 response = ResponseMessage(responseMsg);
                 return response;
