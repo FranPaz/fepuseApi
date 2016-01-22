@@ -17,9 +17,24 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Equipoes
-        public IQueryable<Equipo> GetEquipoes()
+        public IHttpActionResult GetEquipoes(int prmIdLiga)
         {
-            return db.Equipoes;
+            try
+            {
+                var listEquipos = (from l in db.Ligas
+                                   where l.Id == prmIdLiga
+                                   select l.Equipos).ToList();
+                if (listEquipos == null)
+                {
+                    return BadRequest("No existen equipos cargados");
+                }
+
+                return Ok(listEquipos);
+            }
+            catch (Exception ex )
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET: api/Equipoes/5
@@ -79,10 +94,18 @@ namespace fepuseAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Equipoes.Add(equipo);
-            db.SaveChanges();
+            try
+            {
+                db.Equipoes.Add(equipo);
+                db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = equipo.Id }, equipo);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         // DELETE: api/Equipoes/5

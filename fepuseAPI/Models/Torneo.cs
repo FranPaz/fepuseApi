@@ -27,5 +27,10 @@ namespace fepuseAPI.Models
 
         //kikexp: uno a muchos con Arbitro(muchos)
         public virtual ICollection<Arbitro> Arbitros { get; set; }
+
+        //fpaz: m a m con equipos
+        public virtual ICollection<Equipo> Equipos { get; set; }
+
+
     }
 }

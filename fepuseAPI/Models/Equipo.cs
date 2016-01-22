@@ -10,6 +10,10 @@ namespace fepuseAPI.Models
 {
     public class Equipo
     {
+        public Equipo()
+        {
+            this.Torneos = new HashSet<Torneo>();
+        }
         public int Id { get; set; }
         public String Nombre { get; set; }
         public Boolean AlDia { get; set; }
@@ -24,6 +28,12 @@ namespace fepuseAPI.Models
         //fpaz: relacion 1 a m con ImagenEquipo (muchos)
         public virtual ICollection<ImagenEquipo> ImagenesEquipo { get; set; }
 
+        //fpaz: m a m con torneos
+        public virtual ICollection<Torneo> Torneos { get; set; }
+
+        // 1 a m con liga
+        public int? LigaId { get; set; }
+        public virtual Liga Liga { get; set; }
 
     }
 }

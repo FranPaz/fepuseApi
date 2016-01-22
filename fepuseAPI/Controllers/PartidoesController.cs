@@ -26,7 +26,7 @@ namespace fepuseAPI.Controllers
         [ResponseType(typeof(Partido))]
         public IHttpActionResult GetPartido(int id)
         {
-            Partido partido = db.Partidos.Find(id);
+            Partido partido = db.Partidos.Find(id);            
             if (partido == null)
             {
                 return NotFound();
