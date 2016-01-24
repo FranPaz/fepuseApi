@@ -50,6 +50,7 @@ namespace fepuseAPI.Controllers
                                  && t.LigaId == prmIdLiga
                                  select t)
                                  .Include(e => e.Equipos)
+                                 .Include(f => f.Fechas)
                                  .FirstOrDefault();
 
                 if (torneo == null)

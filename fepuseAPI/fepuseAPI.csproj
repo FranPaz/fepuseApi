@@ -236,6 +236,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="ClasesAuxiliares\InfoPartidoFixtureFecha.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\ArbitroesController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
@@ -259,6 +260,18 @@
     <Compile Include="Migrations\201601221834297_m3.cs" />
     <Compile Include="Migrations\201601221834297_m3.Designer.cs">
       <DependentUpon>201601221834297_m3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601231417375_m4.cs" />
+    <Compile Include="Migrations\201601231417375_m4.Designer.cs">
+      <DependentUpon>201601231417375_m4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601232058206_m5.cs" />
+    <Compile Include="Migrations\201601232058206_m5.Designer.cs">
+      <DependentUpon>201601232058206_m5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601232102224_m6.cs" />
+    <Compile Include="Migrations\201601232102224_m6.Designer.cs">
+      <DependentUpon>201601232102224_m6.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\FepuseAPI_Context.cs" />
@@ -357,6 +370,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601221834297_m3.resx">
       <DependentUpon>201601221834297_m3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601231417375_m4.resx">
+      <DependentUpon>201601231417375_m4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601232058206_m5.resx">
+      <DependentUpon>201601232058206_m5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601232102224_m6.resx">
+      <DependentUpon>201601232102224_m6.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

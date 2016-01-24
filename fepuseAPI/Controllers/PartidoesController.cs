@@ -79,10 +79,17 @@ namespace fepuseAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Partidos.Add(partido);
-            db.SaveChanges();
+            try
+            {
+                db.Partidos.Add(partido);
+                db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = partido.Id }, partido);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }            
         }
 
         // DELETE: api/Partidoes/5

@@ -79,10 +79,43 @@ namespace fepuseAPI.Controllers
                 return BadRequest(ModelState);
             }
 
-            db.Jugadors.Add(jugador);
-            db.SaveChanges();
+            try
+            {
+                var ejt = new EquipoJugadorTorneo
+                {
+                    EquipoId = (from e in jugador.EquiposJugadorTorneos
+                                select e.EquipoId).FirstOrDefault(),
+                    TorneoId = (from e in jugador.EquiposJugadorTorneos
+                                select e.TorneoId).FirstOrDefault(),
+                    Jugador = new Jugador
+                    {
+                        Dni = jugador.Dni,
+                        Nombre = jugador.Nombre,
+                        Apellido = jugador.Apellido,
+                        Direccion = jugador.Direccion,
+                        Telefono = jugador.Telefono,
+                        Email = jugador.Email,
+                        Matricula = jugador.Matricula,
+                        Apodo = jugador.Apodo,
+                        Federado = jugador.Federado,
+                        Profesion = jugador.Profesion,
+                        FichaMedica = jugador.FichaMedica
 
-            return CreatedAtRoute("DefaultApi", new { id = jugador.Id }, jugador);
+                    }
+
+                };
+
+                db.EquiposJugadorTorneos.Add(ejt);
+
+                //db.Jugadors.Add(jugador);
+                db.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // DELETE: api/Jugadors/5

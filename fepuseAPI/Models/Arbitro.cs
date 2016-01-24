@@ -11,13 +11,13 @@ namespace fepuseAPI.Models
 {
     [Table("Arbitros")]
     public class Arbitro:Persona
-    {
-        //kikexp: uno a muchos con Torneo
-        public int TorneoId { get; set; }
-        public virtual Torneo Torneo { get; set; }
-
+    {        
         //fpaz: 1 a m con partidos
         public virtual ICollection<Partido> Partidos { get; set; }
+
+        //fpaz: 1 a m con liga (uno)
+        public int LigaId { get; set; }
+        public virtual Liga Liga { get; set; }
 
     }
 }

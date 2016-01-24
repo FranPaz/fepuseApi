@@ -32,7 +32,7 @@ namespace fepuseAPI.Models
         public Jugador Jugador { get; set; }        
 
         //fpaz; 1 a m con torneo (uno)
-        public int TorneoId { get; set; }
+        public int? TorneoId { get; set; }
         public Torneo Torneo { get; set; }
 
         //fpaz; 1 a m con equipo (uno)

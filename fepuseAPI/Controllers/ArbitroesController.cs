@@ -78,11 +78,18 @@ namespace fepuseAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
+            try
+            {
+                db.Arbitroes.Add(arbitro);
+                db.SaveChanges();
 
-            db.Arbitroes.Add(arbitro);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = arbitro.Id }, arbitro);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
         }
 
         // DELETE: api/Arbitroes/5

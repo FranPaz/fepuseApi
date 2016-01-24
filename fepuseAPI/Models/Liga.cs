@@ -22,5 +22,8 @@ namespace fepuseAPI.Models
 
         public virtual ICollection<Equipo> Equipos { get; set; }
 
+        //fpaz: 1 a m  con arbitros (muchos)
+        public virtual ICollection<Arbitro> Arbitros { get; set; }
+
     }
 }

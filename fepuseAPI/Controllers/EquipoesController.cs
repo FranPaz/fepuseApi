@@ -39,15 +39,29 @@ namespace fepuseAPI.Controllers
 
         // GET: api/Equipoes/5
         [ResponseType(typeof(Equipo))]
-        public IHttpActionResult GetEquipo(int id)
+        public IHttpActionResult GetEquipo(int id) //fpaz: trae los datos de un equipo en particular, incluidos los jugadores
         {
-            Equipo equipo = db.Equipoes.Find(id);
-            if (equipo == null)
+            try
             {
-                return NotFound();
-            }
+                Equipo equipo = (from e in db.Equipoes
+                                     where e.Id == id
+                                     select e)
+                                     .Include(j => j.EquiposJugadorTorneos.Select(s => s.Jugador))
+                                     .FirstOrDefault();
+                if (equipo == null)
+                {
+                    return NotFound();
+                }
 
-            return Ok(equipo);
+                return Ok(equipo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            
+
+            
         }
 
         // PUT: api/Equipoes/5
