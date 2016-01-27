@@ -17,9 +17,28 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Arbitroes
-        public IQueryable<Arbitro> GetArbitroes()
+        public IHttpActionResult GetArbitroes(int prmIdLiga)
         {
-            return db.Arbitroes;
+            try
+            {
+                var listArbitros = (from a in db.Arbitroes
+                                    where a.LigaId == prmIdLiga
+                                    select a).ToList();
+                if (listArbitros == null)
+                {
+                    return BadRequest("No existen arbitros Cargados para la Liga");
+                }
+                else
+                {
+                    return Ok(listArbitros);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET: api/Arbitroes/5

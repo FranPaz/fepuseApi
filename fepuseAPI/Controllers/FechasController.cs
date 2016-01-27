@@ -83,6 +83,29 @@ namespace fepuseAPI.Controllers
             }            
         }
 
+        //fpaz: devuelve el id de la primera fecha del Torneo
+        public IHttpActionResult GetPrimeraFecha(int prmIdTorneo)
+        {
+            try
+            {
+                var primeraFechaTorneo = (from f in db.Fechas
+                                          where f.torneoId == prmIdTorneo
+                                          select f).First();
+                if (primeraFechaTorneo == null)
+                {
+                    return BadRequest("El torneo no tiene fechas cargadas");
+                }
+
+                return Ok(primeraFechaTorneo.Id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+
+
         // PUT: api/Fechas/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutFecha(int id, Fecha fecha)
