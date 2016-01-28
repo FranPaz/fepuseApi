@@ -9,11 +9,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace fepuseAPI.Models
 {
     public class Equipo
-    {
-        public Equipo()
-        {
-            this.Torneos = new HashSet<Torneo>();
-        }
+    {       
         public int Id { get; set; }
         public String Nombre { get; set; }
         public Boolean AlDia { get; set; }
@@ -28,12 +24,34 @@ namespace fepuseAPI.Models
         //fpaz: relacion 1 a m con ImagenEquipo (muchos)
         public virtual ICollection<ImagenEquipo> ImagenesEquipo { get; set; }
 
-        //fpaz: m a m con torneos
-        public virtual ICollection<Torneo> Torneos { get; set; }
-
         // 1 a m con liga
         public int? LigaId { get; set; }
         public virtual Liga Liga { get; set; }
 
+        //fpaz: 1 a M con EquipoTorneo (muchos)
+        public virtual ICollection<EquipoTorneo> EquipoTorneos { get; set; }
+
+    }
+
+    public class EquipoTorneo
+    {
+        public int Id { get; set; }
+        //fpaz: 1 a M con torneo (uno)
+        public int TorneoId { get; set; }
+        public virtual Torneo Torneo { get; set; }
+
+        //fpaz: 1 a M con Equipo (uno)
+        public int EquipoId { get; set; }
+        public virtual Equipo Equipo { get; set; }
+
+        public double Puntos { get; set; }
+        public int PartidosJugados { get; set; }
+        public int PartidosGanados { get; set; }
+        public int PartidosEmpatados { get; set; }
+        public int PartidosPerdidos { get; set; }
+        public int GolesAFavor { get; set; }
+        public int GolesEnContra { get; set; }
+        public int DiferenciaGoles { get; set; }
+        
     }
 }

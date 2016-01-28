@@ -90,7 +90,7 @@ namespace fepuseAPI.Controllers
             {
                 var primeraFechaTorneo = (from f in db.Fechas
                                           where f.torneoId == prmIdTorneo
-                                          select f).First();
+                                          select f).FirstOrDefault();
                 if (primeraFechaTorneo == null)
                 {
                     return BadRequest("El torneo no tiene fechas cargadas");

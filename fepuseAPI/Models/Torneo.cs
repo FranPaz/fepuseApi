@@ -23,10 +23,10 @@ namespace fepuseAPI.Models
         public virtual ICollection<ImagenTorneo> ImagenesTorneo { get; set; }
 
         //fpaz: 1 a m con EquipoJugadorTorneo (muchos)
-        public virtual ICollection<EquipoJugadorTorneo> EquiposJugadorTorneos { get; set; }        
+        public virtual ICollection<EquipoJugadorTorneo> EquiposJugadorTorneos { get; set; }
 
-        //fpaz: m a m con equipos
-        public virtual ICollection<Equipo> Equipos { get; set; }
+        //fpaz: 1 a M con EquipoTorneo (muchos)
+        public virtual ICollection<EquipoTorneo> EquipoTorneos { get; set; }
 
     }
 }

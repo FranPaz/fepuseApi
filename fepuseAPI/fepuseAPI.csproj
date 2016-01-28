@@ -273,6 +273,10 @@
     <Compile Include="Migrations\201601232102224_m6.Designer.cs">
       <DependentUpon>201601232102224_m6.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201601272258543_m7.cs" />
+    <Compile Include="Migrations\201601272258543_m7.Designer.cs">
+      <DependentUpon>201601272258543_m7.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\FepuseAPI_Context.cs" />
     <Compile Include="Global.asax.cs">
@@ -379,6 +383,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601232102224_m6.resx">
       <DependentUpon>201601232102224_m6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601272258543_m7.resx">
+      <DependentUpon>201601272258543_m7.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -34,6 +34,7 @@ public class FepuseAPI_Context : IdentityDbContext<ApplicationUser>
 
     public System.Data.Entity.DbSet<fepuseAPI.Models.Persona> Personas { get; set; }
     public System.Data.Entity.DbSet<fepuseAPI.Models.Equipo> Equipoes { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.EquipoTorneo> EquipoTorneos { get; set; }
 
     public System.Data.Entity.DbSet<fepuseAPI.Models.Jugador> Jugadors { get; set; }
 
