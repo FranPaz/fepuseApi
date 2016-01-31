@@ -241,6 +241,7 @@
     <Compile Include="Controllers\ArbitroesController.cs" />
     <Compile Include="Controllers\BaseApiController.cs" />
     <Compile Include="Controllers\EquipoesController.cs" />
+    <Compile Include="Controllers\EquipoTorneosController.cs" />
     <Compile Include="Controllers\FechasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JugadorsController.cs" />
@@ -276,6 +277,14 @@
     <Compile Include="Migrations\201601272258543_m7.cs" />
     <Compile Include="Migrations\201601272258543_m7.Designer.cs">
       <DependentUpon>201601272258543_m7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601291355547_m8.cs" />
+    <Compile Include="Migrations\201601291355547_m8.Designer.cs">
+      <DependentUpon>201601291355547_m8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201601291549152_m9.cs" />
+    <Compile Include="Migrations\201601291549152_m9.Designer.cs">
+      <DependentUpon>201601291549152_m9.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\FepuseAPI_Context.cs" />
@@ -386,6 +395,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201601272258543_m7.resx">
       <DependentUpon>201601272258543_m7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601291355547_m8.resx">
+      <DependentUpon>201601291355547_m8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201601291549152_m9.resx">
+      <DependentUpon>201601291549152_m9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

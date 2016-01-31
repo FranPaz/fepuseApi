@@ -18,6 +18,10 @@ namespace fepuseAPI.Models
         public int PartidoId { get; set; }
         public virtual Partido Partido { get; set; }
 
+        //fpaz: 1 a m con equipo (uno)
+        public int EquipoId { get; set; }
+        public virtual Equipo Equipo { get; set; }
+
         public int Goles { get; set; }
         public int TarjetasAmarillas { get; set; }
         public int TarjetasRojas { get; set; }

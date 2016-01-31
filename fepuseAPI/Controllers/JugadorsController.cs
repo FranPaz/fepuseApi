@@ -90,8 +90,7 @@ namespace fepuseAPI.Controllers
                     Jugador = new Jugador
                     {
                         Dni = jugador.Dni,
-                        Nombre = jugador.Nombre,
-                        Apellido = jugador.Apellido,
+                        NombreApellido = jugador.NombreApellido,                        
                         Direccion = jugador.Direccion,
                         Telefono = jugador.Telefono,
                         Email = jugador.Email,

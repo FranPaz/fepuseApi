@@ -21,9 +21,9 @@ namespace fepuseAPI.Controllers
         {
             try
             {
-                var listEquipos = (from l in db.Ligas
-                                   where l.Id == prmIdLiga
-                                   select l.Equipos).ToList();
+                var listEquipos = (from l in db.Equipoes
+                                   where l.LigaId == prmIdLiga
+                                   select l);
                 if (listEquipos == null)
                 {
                     return BadRequest("No existen equipos cargados");

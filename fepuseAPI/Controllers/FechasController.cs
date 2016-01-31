@@ -64,7 +64,7 @@ namespace fepuseAPI.Controllers
                             nombreEquipoVisitante = db.Equipoes.Find(item.EquipoVisitanteId).Nombre,
                             nombreArbitro = (from a in db.Arbitroes
                                             where a.Id == item.ArbitroId
-                                            select a.Nombre + " " + a.Apellido).FirstOrDefault()
+                                            select a.NombreApellido).FirstOrDefault()
                         };
 
                         partidos.Add(p);
