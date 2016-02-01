@@ -24,52 +24,69 @@ namespace fepuseAPI.Controllers
 
         // GET: api/EquipoTorneos/5
         [ResponseType(typeof(EquipoTorneo))]
-        public IHttpActionResult GetEquipoTorneo(int id)
+        public IHttpActionResult GetEquipoTorneo(int id) //fpaz: devuelve la tabla de posiciones para un torneo en particular
         {
-            EquipoTorneo equipoTorneo = db.EquipoTorneos.Find(id);
-            if (equipoTorneo == null)
+            try
             {
-                return NotFound();
-            }
+                var tablaPosiciones = (from t in db.EquipoTorneos
+                                       where t.TorneoId == id
+                                       select t)
+                                       .Include(e =>e.Equipo)
+                                       .OrderByDescending(t => t.Puntos);
 
-            return Ok(equipoTorneo);
+                if (tablaPosiciones == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(tablaPosiciones);
+            }
+            catch (Exception ex )
+            {
+                return BadRequest(ex.Message);
+            }            
         }
 
-        // PUT: api/EquipoTorneos/5
+        // PUT: api/EquipoTorneos/
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutEquipoTorneo(int id, EquipoTorneo equipoTorneo)
+        public IHttpActionResult PutEquipoTorneo(List<EquipoTorneo> equiposTorneo)  //fpaz: actualiza los datos del torneo de un array de equipos
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
-            }
-
-            if (id != equipoTorneo.Id)
-            {
-                return BadRequest();
-            }
-
-            db.Entry(equipoTorneo).State = EntityState.Modified;
+            }            
 
             try
             {
+                foreach (var item in equiposTorneo)
+                {
+                    //fpaz: obtengo los datos del equipo al que le voy a actualizar sus estadisticas
+                    var datosEquipoTorneo = (from et in db.EquipoTorneos
+                                             where et.TorneoId == item.TorneoId
+                                             && et.EquipoId == item.EquipoId
+                                             select et).FirstOrDefault();
+
+                    //fpaz: actualizo los datos del equipo en el torneo
+                    datosEquipoTorneo.Puntos += item.Puntos;
+                    datosEquipoTorneo.PartidosJugados += item.PartidosJugados;
+                    datosEquipoTorneo.PartidosGanados += item.PartidosGanados;
+                    datosEquipoTorneo.PartidosEmpatados += item.PartidosEmpatados;
+                    datosEquipoTorneo.PartidosPerdidos += item.PartidosPerdidos;
+                    datosEquipoTorneo.GolesAFavor += item.GolesAFavor;
+                    datosEquipoTorneo.GolesEnContra += item.GolesEnContra;
+                    datosEquipoTorneo.DiferenciaGoles = item.GolesAFavor - datosEquipoTorneo.GolesEnContra;                    
+                }
+                
                 db.SaveChanges();
-            }
-            catch (DbUpdateConcurrencyException)
+                return Ok();
+            }            
+            catch(Exception ex)
             {
-                if (!EquipoTorneoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+                return BadRequest(ex.Message);
             }
-
-            return StatusCode(HttpStatusCode.NoContent);
+            
         }
-
+      
         // POST: api/EquipoTorneos
         [ResponseType(typeof(EquipoTorneo))]
         public IHttpActionResult PostEquipoTorneo(EquipoTorneo equipoTorneo)

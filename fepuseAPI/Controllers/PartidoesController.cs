@@ -136,6 +136,7 @@ namespace fepuseAPI.Controllers
                     partidoOrig.ArbitroId = partido.ArbitroId;
                     partidoOrig.GolesLocal = partido.GolesLocal;
                     partidoOrig.GolesVisitante = partido.GolesVisitante;
+                    partidoOrig.Finalizado = partido.Finalizado;
                     //#endregion
 
                     

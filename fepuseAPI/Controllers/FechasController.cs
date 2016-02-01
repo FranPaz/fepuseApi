@@ -149,8 +149,56 @@ namespace fepuseAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            try
+            try            
             {
+                foreach (var partido in fecha.Partidos)
+                {
+                    List<PartidoJugador> jugadoresPartido = new List<PartidoJugador>();
+
+                    // obetengo el listado de jugadores del equipo local cargados para el torneo en particular
+                    var jugadoresLocales = (from j in db.EquiposJugadorTorneos
+                                            where j.TorneoId == fecha.torneoId
+                                            && j.EquipoId == partido.EquipoLocalId
+                                            select j).ToList();
+
+                    foreach (var item in jugadoresLocales)
+                    {
+                        var pj = new PartidoJugador()
+                        {
+                            JugadorId = item.JugadorId,
+                            PartidoId = partido.Id,
+                            EquipoId = item.EquipoId,
+                            Goles = 0,
+                            TarjetasAmarillas = 0,
+                            TarjetasRojas = 0
+                        };
+                        jugadoresPartido.Add(pj); // cargo al jugador como parte del partido                    
+                    }
+
+                    // obetengo el listado de jugadores del equipo visitantes cargados para el torneo en particular
+                    var jugadoresVisitantes = (from j in db.EquiposJugadorTorneos
+                                               where j.TorneoId == fecha.torneoId
+                                               && j.EquipoId == partido.EquipoVisitanteId
+                                               select j).ToList();
+
+                    foreach (var item in jugadoresVisitantes)
+                    {
+                        var pj = new PartidoJugador()
+                        {
+                            JugadorId = item.JugadorId,
+                            PartidoId = partido.Id,
+                            EquipoId = item.EquipoId,
+                            Goles = 0,
+                            TarjetasAmarillas = 0,
+                            TarjetasRojas = 0
+                        };
+
+                        jugadoresPartido.Add(pj); // cargo al jugador como parte del partido
+                    }
+
+                    partido.JugadoresDelPartido = jugadoresPartido;
+                }
+
                 db.Fechas.Add(fecha);
                 db.SaveChanges();
 

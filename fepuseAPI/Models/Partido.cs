@@ -17,6 +17,7 @@ namespace fepuseAPI.Models
         public int GolesLocal { get; set; }
         public int GolesVisitante { get; set; }
         public String Incidencias { get; set; }
+        public bool Finalizado { get; set; }
                 
         //kikexp: uno a muchos con Fecha
         public int FechaId { get; set; }
