@@ -99,7 +99,7 @@ namespace fepuseAPI.Controllers
                     foreach (var equipoAdd in torneo.EquipoTorneos)
                     {
                         var equipo = (from equipoOrig in equiposOriginales // verifico si el equipo esta en el obj modificado
-                                      where equipoOrig.EquipoId == equipoAdd.Id
+                                      where equipoOrig.EquipoId == equipoAdd.EquipoId
                                       select equipoOrig).FirstOrDefault();
 
                         if (equipo == null) // si no encontro el equipo agrego al array para su carga
@@ -124,7 +124,7 @@ namespace fepuseAPI.Controllers
                     foreach (var equipoOrig in equiposOriginales) // eliminacion de equipos que ya no estan en el array
                     {
                         var eo = (from e in torneo.EquipoTorneos // verifico si el equipo original esta en el obj modificado
-                                  where e.Id == equipoOrig.Id
+                                  where equipoOrig.EquipoId == e.EquipoId 
                                   select e).FirstOrDefault();
 
                         if (eo == null) // si no encontro el equipo la elimino del array
@@ -135,34 +135,30 @@ namespace fepuseAPI.Controllers
 
                     foreach (var item in equiposAgregados)
                     {
-                        torneoOrig.EquipoTorneos.Add(item);
+                        db.EquipoTorneos.Add(item);
+                        //torneoOrig.EquipoTorneos.Add(item);
                     }
 
                     foreach (var item in equiposEliminados)
                     {
-                        torneoOrig.EquipoTorneos.Remove(item);
+                        db.EquipoTorneos.Remove(item);
+                        //torneoOrig.EquipoTorneos.Remove(item);
                     }
                     #endregion
 
-
-
+                    torneoOrig.Nombre = torneo.Nombre;
+                    torneoOrig.AñoInicio = torneo.AñoInicio;
+                    torneoOrig.AñoFin = torneo.AñoFin;
+                    torneoOrig.LigaId = torneo.LigaId;
 
                 }
                 db.SaveChanges();
+                return Ok();
             }
-            catch (DbUpdateConcurrencyException)
+            catch (Exception ex)
             {
-                if (!TorneoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return StatusCode(HttpStatusCode.NoContent);
+                return BadRequest(ex.Message);             
+            }            
         }
 
         // POST: api/Torneos
