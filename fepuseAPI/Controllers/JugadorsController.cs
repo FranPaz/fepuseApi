@@ -17,16 +17,37 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Jugadors
-        public IQueryable<Jugador> GetJugadors()
+        public IHttpActionResult GetJugadors(int prmIdEquipo, int prmIdTorneo)
         {
-            return db.Jugadors;
-        }
+            try
+            {
+                var listJugadores = (from ejt in db.EquiposJugadorTorneos
+                                     where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
+                                     select ejt.Jugador)
+                                     .Include(j => j.EquiposJugadorTorneos);
+
+                return Ok(listJugadores);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }  
+        //public IQueryable<Jugador> GetJugadors()
+        //{
+        //    return db.Jugadors;
+        //}
 
         // GET: api/Jugadors/5
         [ResponseType(typeof(Jugador))]
-        public IHttpActionResult GetJugador(int id)
+        public IHttpActionResult GetJugador(int dni)
         {
-            Jugador jugador = db.Jugadors.Find(id);
+            //Jugador jugador = db.Jugadors.Find(id);
+            Jugador jugador = (from e in db.Jugadors
+                               where (e.Dni == dni)
+                               select e)
+                               .Include(ejt => ejt.EquiposJugadorTorneos)
+                               .FirstOrDefault();
             if (jugador == null)
             {
                 return NotFound();
@@ -37,7 +58,7 @@ namespace fepuseAPI.Controllers
 
         // PUT: api/Jugadors/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutJugador(int id, Jugador jugador)
+        public IHttpActionResult PutJugador(int id, Jugador jugador) 
         {
             if (!ModelState.IsValid)
             {
@@ -48,9 +69,10 @@ namespace fepuseAPI.Controllers
             {
                 return BadRequest();
             }
+            //#region Cambio el jugador de equipo
 
-            db.Entry(jugador).State = EntityState.Modified;
-
+             db.Entry(jugador).State = EntityState.Modified;
+            
             try
             {
                 db.SaveChanges();
@@ -87,6 +109,7 @@ namespace fepuseAPI.Controllers
                                 select e.EquipoId).FirstOrDefault(),
                     TorneoId = (from e in jugador.EquiposJugadorTorneos
                                 select e.TorneoId).FirstOrDefault(),
+                   
                     Jugador = new Jugador
                     {
                         Dni = jugador.Dni,

@@ -15,7 +15,7 @@ namespace fepuseAPI.Models
     {        
         public int Matricula { get; set; }     
         public string Apodo { get; set; }
-        public string Federado { get; set; }
+        public bool Federado { get; set; }
         public string Profesion { get; set; }        
         public bool FichaMedica { get; set; }
 
