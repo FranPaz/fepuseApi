@@ -18,21 +18,82 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Fechas
-        public IQueryable<Fecha> GetFechas()
+        //iafar: trae todas las fechas de un torneo
+        [Route("api/FechasTorneo")]
+        public IHttpActionResult GetFechas(int prmIdTorneo)
         {
-            return db.Fechas;
+            try
+            {
+                var fechasTorneo = (from f in db.Fechas
+                                    where f.torneoId == prmIdTorneo
+                                    select f)
+                                      .ToList();
+                List<InfoFecha> infoFechasList = new List<InfoFecha>();
+
+                foreach (var ft in fechasTorneo)
+                {
+                    Fecha fecha = (from f in db.Fechas
+                                   where f.Id == ft.Id
+                                   select f)
+                               .Include(p => p.Partidos)
+                               .Include(a => a.Partidos.Select(ar => ar.Arbitro))
+                               .FirstOrDefault();
+
+
+                    InfoFecha infoFecha = new InfoFecha //instancio la clase auxiliar para mostrar la info de los partidos de la fecha
+                    {
+                        Id = fecha.Id,
+                        NumFecha = fecha.NumFecha,
+                        torneoId = fecha.torneoId
+                    };
+
+                    List<InfoPartidoFixtureFecha> partidos = new List<InfoPartidoFixtureFecha>();
+
+                    foreach (var item in fecha.Partidos)
+                    {
+                        InfoPartidoFixtureFecha p = new InfoPartidoFixtureFecha
+                        {
+                            Id = item.Id,
+                            DiaYHora = item.DiaYHora,
+                            Sede = item.Sede,
+                            GolesLocal = item.GolesLocal,
+                            GolesVisitante = item.GolesVisitante,
+                            nombreEquipoLocal = db.Equipoes.Find(item.EquipoLocalId).Nombre,
+                            nombreEquipoVisitante = db.Equipoes.Find(item.EquipoVisitanteId).Nombre,
+                            nombreArbitro = (from a in db.Arbitroes
+                                             where a.Id == item.ArbitroId
+                                             select a.NombreApellido).FirstOrDefault()
+                        };
+
+                        partidos.Add(p);
+
+
+                        infoFecha.InfoPartidos = partidos;
+
+                    }
+                    infoFechasList.Add(infoFecha);
+                }
+
+                return Ok(infoFechasList);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
+
 
         // GET: api/Fechas/5
         //fpaz: trae la info de la fecha y todos sus partidos (sin el detalle del partido)
-        public IHttpActionResult GetFecha(int id) 
+        public IHttpActionResult GetFecha(int id)
         {
             try
             {
                 Fecha fecha = (from f in db.Fechas
                                where f.Id == id
                                select f)
-                               .Include(p => p.Partidos)                               
+                               .Include(p => p.Partidos)
                                .Include(a => a.Partidos.Select(ar => ar.Arbitro))
                                .FirstOrDefault();
 
@@ -63,8 +124,8 @@ namespace fepuseAPI.Controllers
                             nombreEquipoLocal = db.Equipoes.Find(item.EquipoLocalId).Nombre,
                             nombreEquipoVisitante = db.Equipoes.Find(item.EquipoVisitanteId).Nombre,
                             nombreArbitro = (from a in db.Arbitroes
-                                            where a.Id == item.ArbitroId
-                                            select a.NombreApellido).FirstOrDefault()
+                                             where a.Id == item.ArbitroId
+                                             select a.NombreApellido).FirstOrDefault()
                         };
 
                         partidos.Add(p);
@@ -75,12 +136,12 @@ namespace fepuseAPI.Controllers
                     return Ok(infoFecha);
                 }
 
-                
+
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }            
+            }
         }
 
         //fpaz: devuelve el id de la primera fecha del Torneo
@@ -149,7 +210,7 @@ namespace fepuseAPI.Controllers
             {
                 return BadRequest(ModelState);
             }
-            try            
+            try
             {
                 foreach (var partido in fecha.Partidos)
                 {
@@ -241,5 +302,5 @@ namespace fepuseAPI.Controllers
             return db.Fechas.Count(e => e.Id == id) > 0;
         }
     }
-   
+
 }

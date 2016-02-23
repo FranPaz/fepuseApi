@@ -15,11 +15,12 @@ namespace fepuseAPI.Controllers
     public class PartidoesController : ApiController
     {
         private FepuseAPI_Context db = new FepuseAPI_Context();
-
+        
         // GET: api/Partidoes
         public IQueryable<Partido> GetPartidoes()
         {
             return db.Partidos;
+         
         }
 
         // GET: api/Partidoes/5
@@ -28,7 +29,7 @@ namespace fepuseAPI.Controllers
         public IHttpActionResult GetPartido(int id)
         {
             try
-            {   
+            {
                 Partido partido = (from p in db.Partidos
                                    where p.Id == id
                                    select p)
@@ -38,9 +39,9 @@ namespace fepuseAPI.Controllers
                                   .Include(f => f.Fecha.Torneo)
                                   .Include(j => j.JugadoresDelPartido.Select(jug => jug.Jugador))
                                   .FirstOrDefault();
-                                  
 
-                                  
+
+
 
                 if (partido == null)
                 {
@@ -64,7 +65,7 @@ namespace fepuseAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-            
+
         }
 
         // PUT: api/Partidoes/5
@@ -86,34 +87,34 @@ namespace fepuseAPI.Controllers
                 var partidoOrig = (from p in db.Partidos //obtengo los datos originales del partido que voy a modificar
                                    where p.Id == id
                                    select p)
-                                      .Include(jp => jp.JugadoresDelPartido)                                      
+                                      .Include(jp => jp.JugadoresDelPartido)
                                       .FirstOrDefault();
 
                 if (partidoOrig != null)
                 {
                     #region update de Estadisticas de Jugadores del Partido
                     var jugadoresOriginales = partidoOrig.JugadoresDelPartido;
-                    
+
                     //parte para eliminacion de jugadores que no jugaron el partido
                     List<PartidoJugador> jugadoresEliminados = new List<PartidoJugador>();
                     foreach (var jo in jugadoresOriginales) // eliminacion de jugadores que ya no estan en el array
                     {
                         var jugOrig = (from jm in partido.JugadoresDelPartido // verifico si el jugador esta en el obj modificado
-                                          where jm.Id == jo.Id
-                                          select jm).FirstOrDefault();
+                                       where jm.Id == jo.Id
+                                       select jm).FirstOrDefault();
 
                         if (jugOrig == null) // si no encontro la el jugador en el array modificado lo elimino del array
                         {
-                            jugadoresEliminados.Add(jo);                            
+                            jugadoresEliminados.Add(jo);
                         }
                     }
 
                     //parte para actualizacion de datos estadisticos de cada jugador
-                    foreach (var jo in jugadoresOriginales) 
+                    foreach (var jo in jugadoresOriginales)
                     {
                         var jugMod = (from jm in partido.JugadoresDelPartido // verifico si la camaAdicional esta en el obj modificado
-                                         where jm.Id == jo.Id
-                                         select jm).FirstOrDefault();
+                                      where jm.Id == jo.Id
+                                      select jm).FirstOrDefault();
 
                         if (jugMod != null) // si no encontro la cama adicional modifico los datos
                         {
@@ -139,7 +140,7 @@ namespace fepuseAPI.Controllers
                     partidoOrig.Finalizado = partido.Finalizado;
                     //#endregion
 
-                    
+
                 }
 
                 db.SaveChanges();
@@ -172,7 +173,7 @@ namespace fepuseAPI.Controllers
             {
                 var fecha = db.Fechas.Find(partido.FechaId); // obtengo info de la fecha en la que voy a cargar el partido
                 List<PartidoJugador> jugadoresPartido = new List<PartidoJugador>();
-                               
+
 
                 // obetengo el listado de jugadores del equipo local cargados para el torneo en particular
                 var jugadoresLocales = (from j in db.EquiposJugadorTorneos
@@ -184,7 +185,7 @@ namespace fepuseAPI.Controllers
                 {
                     var pj = new PartidoJugador()
                     {
-                        JugadorId = item.JugadorId, 
+                        JugadorId = item.JugadorId,
                         PartidoId = partido.Id,
                         EquipoId = item.EquipoId,
                         Goles = 0,
@@ -196,9 +197,9 @@ namespace fepuseAPI.Controllers
 
                 // obetengo el listado de jugadores del equipo visitantes cargados para el torneo en particular
                 var jugadoresVisitantes = (from j in db.EquiposJugadorTorneos
-                                        where j.TorneoId == fecha.torneoId
-                                        && j.EquipoId == partido.EquipoVisitanteId
-                                        select j).ToList();
+                                           where j.TorneoId == fecha.torneoId
+                                           && j.EquipoId == partido.EquipoVisitanteId
+                                           select j).ToList();
 
                 foreach (var item in jugadoresVisitantes)
                 {
@@ -225,7 +226,7 @@ namespace fepuseAPI.Controllers
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
-            }            
+            }
         }
 
         // DELETE: api/Partidoes/5

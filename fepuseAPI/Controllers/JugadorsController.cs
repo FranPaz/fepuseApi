@@ -17,22 +17,40 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Jugadors
-        public IHttpActionResult GetJugadors(int prmIdEquipo, int prmIdTorneo)
+        public IHttpActionResult GetJugadors(int prmIdEquipo, int prmIdTorneo, int pageSize, int nPage)
         {
             try
             {
-                var listJugadores = (from ejt in db.EquiposJugadorTorneos
-                                     where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
-                                     select ejt.Jugador)
+                var Jugadores = (from ejt in db.EquiposJugadorTorneos
+                                 where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
+                                 select ejt.Jugador)
                                      .Include(j => j.EquiposJugadorTorneos);
 
-                return Ok(listJugadores);
+                //iafar: pagino la consulta segun tamaño y numero de pagina 
+                var listJugadores = Jugadores.OrderBy(j => j.Id)
+                    .Skip((nPage - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
+                //iafar:Datos de paginacion
+                var totalCount = Jugadores.Count();
+                var paginacion = new
+                {
+                    ItemsTotales = totalCount, //cantidad de items en BD
+                    ItemsLimite = pageSize, //tamaño de pagina
+                    ItemsDevueltos = listJugadores.Count(), //cantidad de items devueltos
+                    TotalPaginas = Math.Ceiling((double)totalCount / pageSize) //total de paginas segun tamaño de pagina
+                };
+
+
+                //iafar: devuelvo objeto con listado de items, cantidad de items y total de paginas
+                return Ok(new { listJugadores, paginacion });
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-        }  
+        }
         //public IQueryable<Jugador> GetJugadors()
         //{
         //    return db.Jugadors;
@@ -58,7 +76,7 @@ namespace fepuseAPI.Controllers
 
         // PUT: api/Jugadors/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutJugador(int id, Jugador jugador) 
+        public IHttpActionResult PutJugador(int id, Jugador jugador)
         {
             if (!ModelState.IsValid)
             {
@@ -71,8 +89,8 @@ namespace fepuseAPI.Controllers
             }
             //#region Cambio el jugador de equipo
 
-             db.Entry(jugador).State = EntityState.Modified;
-            
+            db.Entry(jugador).State = EntityState.Modified;
+
             try
             {
                 db.SaveChanges();
@@ -109,11 +127,11 @@ namespace fepuseAPI.Controllers
                                 select e.EquipoId).FirstOrDefault(),
                     TorneoId = (from e in jugador.EquiposJugadorTorneos
                                 select e.TorneoId).FirstOrDefault(),
-                   
+
                     Jugador = new Jugador
                     {
                         Dni = jugador.Dni,
-                        NombreApellido = jugador.NombreApellido,                        
+                        NombreApellido = jugador.NombreApellido,
                         Direccion = jugador.Direccion,
                         Telefono = jugador.Telefono,
                         Email = jugador.Email,
