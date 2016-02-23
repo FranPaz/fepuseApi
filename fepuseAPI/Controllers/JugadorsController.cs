@@ -17,40 +17,22 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Jugadors
-        public IHttpActionResult GetJugadors(int prmIdEquipo, int prmIdTorneo, int pageSize, int nPage)
+        public IHttpActionResult GetJugadors(int prmIdEquipo, int prmIdTorneo)
         {
             try
             {
-                var Jugadores = (from ejt in db.EquiposJugadorTorneos
-                                 where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
-                                 select ejt.Jugador)
+                var listJugadores = (from ejt in db.EquiposJugadorTorneos
+                                     where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
+                                     select ejt.Jugador)
                                      .Include(j => j.EquiposJugadorTorneos);
 
-                //iafar: pagino la consulta segun tamaño y numero de pagina 
-                var listJugadores = Jugadores.OrderBy(j => j.Id)
-                    .Skip((nPage - 1) * pageSize)
-                    .Take(pageSize)
-                    .ToList();
-
-                //iafar:Datos de paginacion
-                var totalCount = Jugadores.Count();
-                var paginacion = new
-                {
-                    ItemsTotales = totalCount, //cantidad de items en BD
-                    ItemsLimite = pageSize, //tamaño de pagina
-                    ItemsDevueltos = listJugadores.Count(), //cantidad de items devueltos
-                    TotalPaginas = Math.Ceiling((double)totalCount / pageSize) //total de paginas segun tamaño de pagina
-                };
-
-
-                //iafar: devuelvo objeto con listado de items, cantidad de items y total de paginas
-                return Ok(new { listJugadores, paginacion });
+                return Ok(listJugadores);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-        }
+        }  
         //public IQueryable<Jugador> GetJugadors()
         //{
         //    return db.Jugadors;
