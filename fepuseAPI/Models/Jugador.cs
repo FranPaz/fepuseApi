@@ -16,12 +16,15 @@ namespace fepuseAPI.Models
         public int Matricula { get; set; }     
         public string Apodo { get; set; }
         public bool Federado { get; set; }
-        public string Profesion { get; set; }        
         public bool FichaMedica { get; set; }
 
         //fpaz: 1 a m con EquipoJugadorTorneo (muchos)
         public virtual ICollection<EquipoJugadorTorneo> EquiposJugadorTorneos { get; set; }
         public virtual ICollection<PartidoJugador> PartidosJugados { get; set; }
+
+        //kikexp: 1 a m con Profesion (uno)
+        public int ProfesionId { get; set; }
+        public virtual Profesion Profesion { get; set; }
     }
 
     public class EquipoJugadorTorneo  //clase que va a tener la info sobre en que equipo jugo un jugador y en que torneo
@@ -38,5 +41,6 @@ namespace fepuseAPI.Models
         //fpaz; 1 a m con equipo (uno)
         public int EquipoId { get; set; }
         public virtual Equipo Equipo { get; set; }
+        
     }
 }

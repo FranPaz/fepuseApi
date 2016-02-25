@@ -13,7 +13,7 @@ namespace fepuseAPI.Models
     {
         public int Id { get; set; }
         public DateTime DiaYHora { get; set; }        
-        public String Sede { get; set; }
+        //public String Sede { get; set; }
         public int GolesLocal { get; set; }
         public int GolesVisitante { get; set; }
         public String Incidencias { get; set; }

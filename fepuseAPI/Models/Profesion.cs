@@ -5,12 +5,12 @@ using System.Web;
 
 namespace fepuseAPI.Models
 {
-    public class Sede
+    public class Profesion
     {
         public int Id { get; set; }
         public String Nombre { get; set; }
 
-        //kikexp: uno a muchos con partido
-        public virtual ICollection<Partido> Partidos { get; set; }
+        //kikexp: uno a muchos con Jugadores
+        public virtual ICollection<Jugador> Jugadores { get; set; }
     }
 }

@@ -55,7 +55,8 @@ namespace fepuseAPI.Controllers
                         {
                             Id = item.Id,
                             DiaYHora = item.DiaYHora,
-                            Sede = item.Sede,
+                            //Sede = item.Sede,
+                            Sede = db.Sedes.Find(item.SedeId).Nombre,
                             GolesLocal = item.GolesLocal,
                             GolesVisitante = item.GolesVisitante,
                             nombreEquipoLocal = db.Equipoes.Find(item.EquipoLocalId).Nombre,
@@ -118,7 +119,8 @@ namespace fepuseAPI.Controllers
                         {
                             Id = item.Id,
                             DiaYHora = item.DiaYHora,
-                            Sede = item.Sede,
+                            //Sede = item.Sede,
+                            Sede= db.Sedes.Find(item.SedeId).Nombre,
                             GolesLocal = item.GolesLocal,
                             GolesVisitante = item.GolesVisitante,
                             nombreEquipoLocal = db.Equipoes.Find(item.EquipoLocalId).Nombre,
