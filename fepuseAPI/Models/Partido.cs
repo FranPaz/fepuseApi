@@ -42,5 +42,9 @@ namespace fepuseAPI.Models
         public int? ArbitroId { get; set; }
         public virtual Arbitro Arbitro { get; set; }
 
+        //kikexp: 1 a m con sede
+        public int? SedeId { get; set; }
+        public virtual Sede Sede { get; set; }
+
     }
 }
