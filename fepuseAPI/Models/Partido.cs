@@ -39,7 +39,7 @@ namespace fepuseAPI.Models
         public virtual ICollection<PartidoJugador> JugadoresDelPartido { get; set; } //relacion de partido con el jugador
 
         //fpaz: 1 a m con arbritos (uno)
-        public int ArbitroId { get; set; }
+        public int? ArbitroId { get; set; }
         public virtual Arbitro Arbitro { get; set; }
 
     }
