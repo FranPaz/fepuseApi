@@ -45,12 +45,16 @@ public class FepuseAPI_Context : IdentityDbContext<ApplicationUser>
     public System.Data.Entity.DbSet<fepuseAPI.Models.ImagenTorneo> ImagenesTorneo { get; set; }
     public System.Data.Entity.DbSet<fepuseAPI.Models.ImagenPersona> ImagenesPersona { get; set; }
 
+    public System.Data.Entity.DbSet<fepuseAPI.Models.Sede> Sedes { get; set; }
 
+    public System.Data.Entity.DbSet<fepuseAPI.Models.Profesion> Profesions { get; set; }
     #endregion
 
     public static FepuseAPI_Context Create()
     {
         return new FepuseAPI_Context();
     }
+
+    
 
 }
