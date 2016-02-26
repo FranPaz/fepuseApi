@@ -23,7 +23,7 @@ namespace fepuseAPI.Models
         public virtual ICollection<PartidoJugador> PartidosJugados { get; set; }
 
         //kikexp: 1 a m con Profesion (uno)
-        public int ProfesionId { get; set; }
+        public int? ProfesionId { get; set; }
         public virtual Profesion Profesion { get; set; }
     }
 
