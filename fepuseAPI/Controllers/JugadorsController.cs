@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using fepuseAPI.Models;
+using fepuseAPI.ClasesAuxiliares;
 
 namespace fepuseAPI.Controllers
 {
@@ -24,8 +25,8 @@ namespace fepuseAPI.Controllers
                 var listJugadores = (from ejt in db.EquiposJugadorTorneos
                                      where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
                                      select ejt.Jugador)
-                                     .Include(j => j.EquiposJugadorTorneos);
-             
+                                     .Include(j => j.EquiposJugadorTorneos)
+                                     .ToList();
 
                 return Ok(listJugadores);
             }
@@ -33,7 +34,7 @@ namespace fepuseAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }  
+        }
         //public IQueryable<Jugador> GetJugadors()
         //{
         //    return db.Jugadors;
@@ -110,8 +111,8 @@ namespace fepuseAPI.Controllers
                                 select e.EquipoId).FirstOrDefault(),
                     TorneoId = (from e in jugador.EquiposJugadorTorneos
                                 select e.TorneoId).FirstOrDefault(),
-                   
-                    
+
+
 
                     Jugador = new Jugador
                     {
@@ -126,8 +127,8 @@ namespace fepuseAPI.Controllers
                         ProfesionId = jugador.ProfesionId,
                         FichaMedica = jugador.FichaMedica,
                         Profesion = (from pro in db.Profesions
-                                         where pro.Id== jugador.ProfesionId
-                                         select pro).FirstOrDefault()
+                                     where pro.Id == jugador.ProfesionId
+                                     select pro).FirstOrDefault()
                     }
 
                 };
