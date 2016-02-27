@@ -18,7 +18,8 @@ namespace fepuseAPI.ClasesAuxiliares
     public class InfoPartidoFixtureFecha
     {
         public int Id { get; set; } // es el id del partido       
-        public DateTime DiaYHora { get; set; }
+        public DateTime Dia { get; set; }
+        public string Hora { get; set; }
         public string Sede { get; set; }
         public int GolesLocal { get; set; }
         public int GolesVisitante { get; set; }

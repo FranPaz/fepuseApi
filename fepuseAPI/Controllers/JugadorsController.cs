@@ -25,6 +25,7 @@ namespace fepuseAPI.Controllers
                                      where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
                                      select ejt.Jugador)
                                      .Include(j => j.EquiposJugadorTorneos);
+             
 
                 return Ok(listJugadores);
             }
@@ -109,6 +110,8 @@ namespace fepuseAPI.Controllers
                                 select e.EquipoId).FirstOrDefault(),
                     TorneoId = (from e in jugador.EquiposJugadorTorneos
                                 select e.TorneoId).FirstOrDefault(),
+                   
+                    
 
                     Jugador = new Jugador
                     {
@@ -120,9 +123,11 @@ namespace fepuseAPI.Controllers
                         Matricula = jugador.Matricula,
                         Apodo = jugador.Apodo,
                         Federado = jugador.Federado,
-                        Profesion = jugador.Profesion,
-                        FichaMedica = jugador.FichaMedica
-
+                        ProfesionId = jugador.ProfesionId,
+                        FichaMedica = jugador.FichaMedica,
+                        Profesion = (from pro in db.Profesions
+                                         where pro.Id== jugador.ProfesionId
+                                         select pro).FirstOrDefault()
                     }
 
                 };

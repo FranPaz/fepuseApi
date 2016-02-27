@@ -9,8 +9,8 @@ namespace fepuseAPI.Models
     {
         public int Id { get; set; }
         public String Nombre { get; set; }
-        public int AñoInicio { get; set; }
-        public int AñoFin { get; set; }
+        public String AñoInicio { get; set; }
+        public String AñoFin { get; set; }
 
         //kikexp: uno a muchos con Liga
         public int LigaId { get; set; }

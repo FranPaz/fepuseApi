@@ -16,6 +16,7 @@ namespace fepuseAPI.Models
         public int Matricula { get; set; }     
         public string Apodo { get; set; }
         public bool Federado { get; set; }
+        public string Categoria { get; set; }
         public bool FichaMedica { get; set; }
 
         //fpaz: 1 a m con EquipoJugadorTorneo (muchos)

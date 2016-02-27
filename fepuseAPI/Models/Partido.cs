@@ -12,7 +12,8 @@ namespace fepuseAPI.Models
     public class Partido
     {
         public int Id { get; set; }
-        public DateTime DiaYHora { get; set; }        
+        public DateTime Dia { get; set; }
+        public String Hora { get; set; }
         //public String Sede { get; set; }
         public int GolesLocal { get; set; }
         public int GolesVisitante { get; set; }

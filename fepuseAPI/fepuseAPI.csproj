@@ -248,60 +248,14 @@
     <Compile Include="Controllers\JugadorsController.cs" />
     <Compile Include="Controllers\LigasController.cs" />
     <Compile Include="Controllers\PartidoesController.cs" />
+    <Compile Include="Controllers\ProfesionsController.cs" />
     <Compile Include="Controllers\RolesController.cs" />
+    <Compile Include="Controllers\SedesController.cs" />
     <Compile Include="Controllers\TorneosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Migrations\201601212004010_inicial.cs" />
-    <Compile Include="Migrations\201601212004010_inicial.Designer.cs">
-      <DependentUpon>201601212004010_inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601221826579_m2.cs" />
-    <Compile Include="Migrations\201601221826579_m2.Designer.cs">
-      <DependentUpon>201601221826579_m2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601221834297_m3.cs" />
-    <Compile Include="Migrations\201601221834297_m3.Designer.cs">
-      <DependentUpon>201601221834297_m3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601231417375_m4.cs" />
-    <Compile Include="Migrations\201601231417375_m4.Designer.cs">
-      <DependentUpon>201601231417375_m4.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601232058206_m5.cs" />
-    <Compile Include="Migrations\201601232058206_m5.Designer.cs">
-      <DependentUpon>201601232058206_m5.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601232102224_m6.cs" />
-    <Compile Include="Migrations\201601232102224_m6.Designer.cs">
-      <DependentUpon>201601232102224_m6.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601272258543_m7.cs" />
-    <Compile Include="Migrations\201601272258543_m7.Designer.cs">
-      <DependentUpon>201601272258543_m7.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601291355547_m8.cs" />
-    <Compile Include="Migrations\201601291355547_m8.Designer.cs">
-      <DependentUpon>201601291355547_m8.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201601291549152_m9.cs" />
-    <Compile Include="Migrations\201601291549152_m9.Designer.cs">
-      <DependentUpon>201601291549152_m9.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602012207123_m10.cs" />
-    <Compile Include="Migrations\201602012207123_m10.Designer.cs">
-      <DependentUpon>201602012207123_m10.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602101335007_jugadores.cs" />
-    <Compile Include="Migrations\201602101335007_jugadores.Designer.cs">
-      <DependentUpon>201602101335007_jugadores.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602262124231_ArbSedeProf.cs" />
-    <Compile Include="Migrations\201602262124231_ArbSedeProf.Designer.cs">
-      <DependentUpon>201602262124231_ArbSedeProf.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602262140297_jugador.cs" />
-    <Compile Include="Migrations\201602262140297_jugador.Designer.cs">
-      <DependentUpon>201602262140297_jugador.cs</DependentUpon>
+    <Compile Include="Migrations\201602272016235_Inicial.cs" />
+    <Compile Include="Migrations\201602272016235_Inicial.Designer.cs">
+      <DependentUpon>201602272016235_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\FepuseAPI_Context.cs" />
@@ -394,44 +348,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201601212004010_inicial.resx">
-      <DependentUpon>201601212004010_inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601221826579_m2.resx">
-      <DependentUpon>201601221826579_m2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601221834297_m3.resx">
-      <DependentUpon>201601221834297_m3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601231417375_m4.resx">
-      <DependentUpon>201601231417375_m4.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601232058206_m5.resx">
-      <DependentUpon>201601232058206_m5.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601232102224_m6.resx">
-      <DependentUpon>201601232102224_m6.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601272258543_m7.resx">
-      <DependentUpon>201601272258543_m7.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601291355547_m8.resx">
-      <DependentUpon>201601291355547_m8.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201601291549152_m9.resx">
-      <DependentUpon>201601291549152_m9.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602012207123_m10.resx">
-      <DependentUpon>201602012207123_m10.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602101335007_jugadores.resx">
-      <DependentUpon>201602101335007_jugadores.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602262124231_ArbSedeProf.resx">
-      <DependentUpon>201602262124231_ArbSedeProf.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602262140297_jugador.resx">
-      <DependentUpon>201602262140297_jugador.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201602272016235_Inicial.resx">
+      <DependentUpon>201602272016235_Inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

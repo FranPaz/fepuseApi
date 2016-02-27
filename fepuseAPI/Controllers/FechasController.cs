@@ -54,7 +54,8 @@ namespace fepuseAPI.Controllers
                         InfoPartidoFixtureFecha p = new InfoPartidoFixtureFecha
                         {
                             Id = item.Id,
-                            DiaYHora = item.DiaYHora,
+                            Dia = item.Dia,
+                            Hora = item.Hora,
                             //Sede = item.Sede,
                             Sede = db.Sedes.Find(item.SedeId).Nombre,
                             GolesLocal = item.GolesLocal,
@@ -118,7 +119,8 @@ namespace fepuseAPI.Controllers
                         InfoPartidoFixtureFecha p = new InfoPartidoFixtureFecha
                         {
                             Id = item.Id,
-                            DiaYHora = item.DiaYHora,
+                            Dia = item.Dia,
+                            Hora = item.Hora,
                             //Sede = item.Sede,
                             Sede= db.Sedes.Find(item.SedeId).Nombre,
                             GolesLocal = item.GolesLocal,

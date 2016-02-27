@@ -53,7 +53,7 @@ namespace fepuseAPI.Providers
             catch (Exception ex)
             {
 
-                throw new ArgumentNullException("data");
+                throw new ArgumentNullException(" data");
             }
         }
 
