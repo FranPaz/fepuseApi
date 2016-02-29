@@ -17,9 +17,9 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Sedes
-        public IQueryable<Sede> GetSedes()
+        public IHttpActionResult GetSedes()
         {
-            return db.Sedes;
+            return Ok(db.Sedes);
         }
 
         // GET: api/Sedes/5

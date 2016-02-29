@@ -70,7 +70,7 @@ namespace fepuseAPI.Controllers
         // PUT: api/Torneos/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutTorneo(int id, Torneo torneo)
-        {
+            {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
