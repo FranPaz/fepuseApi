@@ -133,7 +133,8 @@ namespace fepuseAPI.Controllers
 
                     //#region update de datos del Partido
                     partidoOrig.Sede = partido.Sede;
-                    partidoOrig.DiaYHora = partido.DiaYHora;
+                    partidoOrig.Dia = partido.Dia;
+                    partidoOrig.Hora = partido.Hora;
                     partidoOrig.ArbitroId = partido.ArbitroId;
                     partidoOrig.GolesLocal = partido.GolesLocal;
                     partidoOrig.GolesVisitante = partido.GolesVisitante;

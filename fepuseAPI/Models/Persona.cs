@@ -9,6 +9,7 @@ namespace fepuseAPI.Models
     {
         public int Id { get; set; }
         public int Dni { get; set; }
+        public string FecNacimiento { get; set; }
         public String NombreApellido { get; set; }        
         public String Direccion { get; set; }
         public int Telefono { get; set; }
