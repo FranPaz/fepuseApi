@@ -257,18 +257,6 @@
     <Compile Include="Migrations\201602272016235_Inicial.Designer.cs">
       <DependentUpon>201602272016235_Inicial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201602241233431_Arbitro.cs" />
-    <Compile Include="Migrations\201602241233431_Arbitro.Designer.cs">
-      <DependentUpon>201602241233431_Arbitro.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602252008334_Sedes.cs" />
-    <Compile Include="Migrations\201602252008334_Sedes.Designer.cs">
-      <DependentUpon>201602252008334_Sedes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201602252031032_Profesion.cs" />
-    <Compile Include="Migrations\201602252031032_Profesion.Designer.cs">
-      <DependentUpon>201602252031032_Profesion.cs</DependentUpon>
-    </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\FepuseAPI_Context.cs" />
     <Compile Include="Global.asax.cs">
@@ -362,15 +350,6 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201602272016235_Inicial.resx">
       <DependentUpon>201602272016235_Inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602241233431_Arbitro.resx">
-      <DependentUpon>201602241233431_Arbitro.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602252008334_Sedes.resx">
-      <DependentUpon>201602252008334_Sedes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201602252031032_Profesion.resx">
-      <DependentUpon>201602252031032_Profesion.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
