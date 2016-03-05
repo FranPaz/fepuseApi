@@ -58,6 +58,31 @@ namespace fepuseAPI.Controllers
             return Ok(jugador);
         }
 
+        [Route("api/Jugadors/jugadoresliga")]
+        public IHttpActionResult GetJugadoresLiga(int prmLigaId) // fpaz: lista todos los jugadores de la liga
+        {
+            try
+            {
+                // obtengo los goeadores del torneo
+                List<Jugador> jugadores = (from t in db.EquiposJugadorTorneos
+                                           join l in db.Ligas on t.Torneo.LigaId equals l.Id
+                                           where l.Id == prmLigaId
+                                           group t by new
+                                           {
+                                               t.Jugador
+                                           } into g
+                                           select g.Key.Jugador)
+                                               .ToList();
+
+                return Ok(jugadores);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
         // PUT: api/Jugadors/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutJugador(int id, Jugador jugador)

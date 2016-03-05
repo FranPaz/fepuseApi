@@ -236,6 +236,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="ClasesAuxiliares\Estadisticas.cs" />
     <Compile Include="ClasesAuxiliares\InfoPartidoFixtureFecha.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
     <Compile Include="Controllers\ArbitroesController.cs" />
@@ -243,6 +244,7 @@
     <Compile Include="Controllers\EquipoesController.cs" />
     <Compile Include="Controllers\EquipoJugadorTorneosController.cs" />
     <Compile Include="Controllers\EquipoTorneosController.cs" />
+    <Compile Include="Controllers\EstadisticasController.cs" />
     <Compile Include="Controllers\FechasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\JugadorsController.cs" />

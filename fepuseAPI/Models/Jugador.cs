@@ -11,9 +11,9 @@ using Microsoft.AspNet.Identity.EntityFramework;
 namespace fepuseAPI.Models
 {
     [Table("Jugadores")]
-    public class Jugador:Persona
-    {        
-        public int Matricula { get; set; }     
+    public class Jugador : Persona
+    {
+        public int Matricula { get; set; }
         public string Apodo { get; set; }
         public bool Federado { get; set; }
         public string Categoria { get; set; }
@@ -33,7 +33,7 @@ namespace fepuseAPI.Models
         public int Id { get; set; }
         //fpaz; 1 a m con jugador (uno)
         public int JugadorId { get; set; }
-        public Jugador Jugador { get; set; }        
+        public Jugador Jugador { get; set; }
 
         //fpaz; 1 a m con torneo (uno)
         public int? TorneoId { get; set; }
@@ -42,6 +42,6 @@ namespace fepuseAPI.Models
         //fpaz; 1 a m con equipo (uno)
         public int EquipoId { get; set; }
         public virtual Equipo Equipo { get; set; }
-        
+
     }
 }
