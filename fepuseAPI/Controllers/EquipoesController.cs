@@ -17,16 +17,27 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Equipoes
-        public IHttpActionResult GetEquipoes(int prmIdLiga)
+        public IHttpActionResult GetEquipoes(int prmIdLiga) //fpaz: trae los datos de todos los esquipos de la liga
         {
             try
             {
                 var listEquipos = (from l in db.Equipoes
                                    where l.LigaId == prmIdLiga
-                                   select l);
+                                   select l)
+                                   .Include(i=>i.ImagenesEquipo);
+
                 if (listEquipos == null)
                 {
                     return BadRequest("No existen equipos cargados");
+                }
+
+                foreach (var item in listEquipos) //fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
+                {
+                    ImagenEquipo ultimaImagen = item.ImagenesEquipo.LastOrDefault();
+                    List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
+                    imagenes.Add(ultimaImagen);
+
+                    item.ImagenesEquipo = imagenes;
                 }
 
                 return Ok(listEquipos);
@@ -47,11 +58,18 @@ namespace fepuseAPI.Controllers
                                      where e.Id == id
                                      select e)
                                      .Include(j => j.EquiposJugadorTorneos.Select(s => s.Jugador))
+                                     .Include(i=>i.ImagenesEquipo)
                                      .FirstOrDefault();
                 if (equipo == null)
                 {
                     return NotFound();
                 }
+
+                //fpaz: obtengo la ultima imagen del equipo para el logo
+                ImagenEquipo ultimaImagen = equipo.ImagenesEquipo.LastOrDefault();
+                List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
+                imagenes.Add(ultimaImagen);
+                equipo.ImagenesEquipo = imagenes;      
 
                 return Ok(equipo);
             }
@@ -113,13 +131,35 @@ namespace fepuseAPI.Controllers
                 db.Equipoes.Add(equipo);
                 db.SaveChanges();
 
-                return Ok();
+                return Ok(equipo);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
             
+        }
+
+        [Route("api/Equipoes/Imagen")]
+        public IHttpActionResult PostImagenEquipo(ImagenEquipo imagenEquipo)
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                db.ImagenesEquipo.Add(imagenEquipo);
+                db.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         // DELETE: api/Equipoes/5

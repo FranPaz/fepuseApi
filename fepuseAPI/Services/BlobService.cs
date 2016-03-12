@@ -34,10 +34,7 @@ namespace fepuseAPI.Services
                     return provider.Uploads.ToList();
                 });
 
-            // TODO: Use data in the list to store blob info in your
-            // database so that you can always retrieve it later.
-
-            return list;
+            return list; // devuelvo el modelo de la imagen subida al azure
         }
 
         public async Task<BlobDownloadModel> DownloadBlob(int blobId)

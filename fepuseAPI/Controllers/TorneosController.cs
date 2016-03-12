@@ -23,11 +23,22 @@ namespace fepuseAPI.Controllers
             {
                 var listTorneos = (from t in db.Torneos
                                    where t.LigaId == prmIdLiga
-                                   select t).ToList();
+                                   select t)
+                                   .Include(i => i.ImagenesTorneo)
+                                   .ToList();
                 
                 if (listTorneos == null)
                 {
                     return BadRequest("No existen Torneos Cargados para la Liga");
+                }
+
+                foreach (var item in listTorneos) //fpaz: para cada torneo solo muestro la ultima imagen cargada como logo
+                {
+                    ImagenTorneo ultimaImagen = item.ImagenesTorneo.LastOrDefault();
+                    List<ImagenTorneo> imagenes = new List<ImagenTorneo>();
+                    imagenes.Add(ultimaImagen);
+
+                    item.ImagenesTorneo = imagenes;                    
                 }
 
                 return Ok(listTorneos);
@@ -49,14 +60,44 @@ namespace fepuseAPI.Controllers
                                  where t.Id == prmIdTorneo
                                  && t.LigaId == prmIdLiga
                                  select t)
-                                 .Include(e => e.EquipoTorneos.Select(eq => eq.Equipo))
+                                 .Include(e => e.EquipoTorneos
+                                     .Select(eq => eq.Equipo.ImagenesEquipo)
+                                     )
                                  .Include(f => f.Fechas)
+                                 .Include(i=>i.ImagenesTorneo)
                                  .FirstOrDefault();
 
                 if (torneo == null)
                 {
                     return BadRequest("El torneo seleccionado no existe");
                 }
+
+                //fpaz: obtengo la ultima imagen del torneo para el logo
+                ImagenTorneo ultimaImagen = torneo.ImagenesTorneo.LastOrDefault();
+                List<ImagenTorneo> imagenes = new List<ImagenTorneo>();
+                imagenes.Add(ultimaImagen);
+                torneo.ImagenesTorneo = imagenes;
+                
+                //#region fpaz: obtengo los logos actuales de los equipos
+                var equiposTorneo = torneo.EquipoTorneos.ToList();
+                
+                List<EquipoTorneo> equiposTorneoConImagen = new List<EquipoTorneo>();
+
+                foreach (var item in equiposTorneo)
+                {
+                         ImagenEquipo ultimaImagenEquipo = item.Equipo.ImagenesEquipo.LastOrDefault();
+                        List<ImagenEquipo> imagenesEquipo = new List<ImagenEquipo>();
+                        imagenesEquipo.Add(ultimaImagenEquipo);
+
+                        item.Equipo.ImagenesEquipo = imagenesEquipo;
+  
+                        equiposTorneoConImagen.Add(item);
+
+                }
+
+                torneo.EquipoTorneos = equiposTorneoConImagen;
+                //#endregion
+
 
                 return Ok(torneo);
             }
@@ -147,8 +188,8 @@ namespace fepuseAPI.Controllers
                     #endregion
 
                     torneoOrig.Nombre = torneo.Nombre;
-                    torneoOrig.AñoInicio = torneo.AñoInicio;
-                    torneoOrig.AñoFin = torneo.AñoFin;
+                    torneoOrig.FechaInicio = torneo.FechaInicio;
+                    torneoOrig.FechaFin = torneo.FechaFin;
                     torneoOrig.LigaId = torneo.LigaId;
 
                 }
@@ -173,6 +214,28 @@ namespace fepuseAPI.Controllers
             try
             {
                 db.Torneos.Add(torneo);
+                db.SaveChanges();
+
+                return Ok(torneo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+        [Route("api/Torneos/Imagen")]
+        public IHttpActionResult PostImagenTorneo(ImagenTorneo imagenTorneo) //fpaz: asocia una imagen subida al azure al torneo
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                db.ImagenesTorneo.Add(imagenTorneo);
                 db.SaveChanges();
 
                 return Ok();

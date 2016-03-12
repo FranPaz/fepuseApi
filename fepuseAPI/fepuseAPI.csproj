@@ -247,6 +247,7 @@
     <Compile Include="Controllers\EstadisticasController.cs" />
     <Compile Include="Controllers\FechasController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ImagenesController.cs" />
     <Compile Include="Controllers\JugadorsController.cs" />
     <Compile Include="Controllers\LigasController.cs" />
     <Compile Include="Controllers\PartidoesController.cs" />
@@ -258,6 +259,10 @@
     <Compile Include="Migrations\201602272016235_Inicial.cs" />
     <Compile Include="Migrations\201602272016235_Inicial.Designer.cs">
       <DependentUpon>201602272016235_Inicial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201603122243084_m1.cs" />
+    <Compile Include="Migrations\201603122243084_m1.Designer.cs">
+      <DependentUpon>201603122243084_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\FepuseAPI_Context.cs" />
@@ -352,6 +357,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201602272016235_Inicial.resx">
       <DependentUpon>201602272016235_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201603122243084_m1.resx">
+      <DependentUpon>201603122243084_m1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
