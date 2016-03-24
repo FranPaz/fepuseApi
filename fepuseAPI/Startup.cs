@@ -52,8 +52,7 @@ namespace fepuseAPI
                 TokenEndpointPath = new PathString("/oauth/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(1),
                 Provider = new CustomOAuthProvider(),
-                //AccessTokenFormat = new CustomJwtFormat("http://vlaboralapi.azurewebsites.net")
-                AccessTokenFormat = new CustomJwtFormat("http://localhost:50174")
+                AccessTokenFormat = new CustomJwtFormat(ConfigurationManager.AppSettings["urlApi"]) //fpaz: url del WebApi que se toma desde las configuraciones en el webconfig                 
             };
 
             // OAuth 2.0 Bearer Access Token Generation
@@ -63,8 +62,7 @@ namespace fepuseAPI
         private void ConfigureOAuthTokenConsumption(IAppBuilder app)
         {
 
-            var issuer = "http://localhost:50174/";
-            //var issuer = "http://vlaboralapi.azurewebsites.net"; // fpaz: azure
+            var issuer = ConfigurationManager.AppSettings["urlApi"]; //fpaz: url del WebApi que se toma desde las configuraciones en el webconfig                             
             string audienceId = ConfigurationManager.AppSettings["as:AudienceId"];
             byte[] audienceSecret = TextEncodings.Base64Url.Decode(ConfigurationManager.AppSettings["as:AudienceSecret"]);
 
