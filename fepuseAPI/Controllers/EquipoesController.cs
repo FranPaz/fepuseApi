@@ -65,11 +65,12 @@ namespace fepuseAPI.Controllers
                     return NotFound();
                 }
 
-                //fpaz: obtengo la ultima imagen del equipo para el logo
+                #region fpaz: obtengo la ultima imagen del equipo para el logo
                 ImagenEquipo ultimaImagen = equipo.ImagenesEquipo.LastOrDefault();
                 List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
                 imagenes.Add(ultimaImagen);
-                equipo.ImagenesEquipo = imagenes;      
+                equipo.ImagenesEquipo = imagenes;
+                #endregion
 
                 return Ok(equipo);
             }

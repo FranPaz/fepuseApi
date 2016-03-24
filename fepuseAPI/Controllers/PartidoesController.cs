@@ -33,32 +33,33 @@ namespace fepuseAPI.Controllers
                 Partido partido = (from p in db.Partidos
                                    where p.Id == id
                                    select p)
-                                    .Include(el => el.EquipoLocal)
-                                    .Include(el => el.EquipoVisitante)
+                                   .Include(el => el.EquipoLocal.ImagenesEquipo)
+                                   .Include(el => el.EquipoVisitante.ImagenesEquipo)
                                    .Include(a => a.Arbitro)
-                                  .Include(f => f.Fecha.Torneo)
-                                  .Include(j => j.JugadoresDelPartido.Select(jug => jug.Jugador))
-                                  .FirstOrDefault();
-
-
-
+                                   .Include(f => f.Fecha.Torneo)
+                                   .Include(j => j.JugadoresDelPartido.Select(jug => jug.Jugador))
+                                   .Include(s => s.Sede)
+                                   .FirstOrDefault();
 
                 if (partido == null)
                 {
                     return NotFound();
                 }
 
-                //var jugadoresLocales = (from j in partido.EquipoLocal.EquiposJugadorTorneos
-                //                                             where j.TorneoId == partido.Fecha.torneoId
-                //                                             select j).ToList();
+                #region fpaz: obtengo la ultima imagen del equipo local para el logo
+                ImagenEquipo ultimaImagenLocal = partido.EquipoLocal.ImagenesEquipo.LastOrDefault();
+                List<ImagenEquipo> imagenesLocal = new List<ImagenEquipo>();
+                imagenesLocal.Add(ultimaImagenLocal);
+                partido.EquipoLocal.ImagenesEquipo = imagenesLocal;
+                #endregion
 
-                //partido.EquipoLocal.EquiposJugadorTorneos = jugadoresLocales;
-
-                //var jugadoresVistantes = (from j in partido.EquipoVisitante.EquiposJugadorTorneos
-                //                        where j.TorneoId == partido.Fecha.torneoId
-                //                        select j).ToList();
-
-                //partido.EquipoVisitante.EquiposJugadorTorneos = jugadoresVistantes;
+                #region fpaz: obtengo la ultima imagen del equipo Visitante para el logo
+                ImagenEquipo ultimaImagenVisitante = partido.EquipoVisitante.ImagenesEquipo.LastOrDefault();
+                List<ImagenEquipo> imagenesVisitante = new List<ImagenEquipo>();
+                imagenesVisitante.Add(ultimaImagenLocal);
+                partido.EquipoVisitante.ImagenesEquipo = imagenesLocal;
+                #endregion
+                
                 return Ok(partido);
             }
             catch (Exception ex)
