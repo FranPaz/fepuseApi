@@ -32,14 +32,16 @@ namespace fepuseAPI.Controllers
                     return BadRequest("No existen Torneos Cargados para la Liga");
                 }
 
-                foreach (var item in listTorneos) //fpaz: para cada torneo solo muestro la ultima imagen cargada como logo
+                #region fpaz: para cada torneo solo muestro la ultima imagen cargada como logo
+                foreach (var item in listTorneos) 
                 {
                     ImagenTorneo ultimaImagen = item.ImagenesTorneo.LastOrDefault();
                     List<ImagenTorneo> imagenes = new List<ImagenTorneo>();
                     imagenes.Add(ultimaImagen);
 
-                    item.ImagenesTorneo = imagenes;                    
+                    item.ImagenesTorneo = imagenes;
                 }
+                #endregion
 
                 return Ok(listTorneos);
 
@@ -78,7 +80,7 @@ namespace fepuseAPI.Controllers
                 imagenes.Add(ultimaImagen);
                 torneo.ImagenesTorneo = imagenes;
                 
-                //#region fpaz: obtengo los logos actuales de los equipos
+                #region fpaz: obtengo los logos actuales de los equipos
                 var equiposTorneo = torneo.EquipoTorneos.ToList();
                 
                 List<EquipoTorneo> equiposTorneoConImagen = new List<EquipoTorneo>();
@@ -96,7 +98,7 @@ namespace fepuseAPI.Controllers
                 }
 
                 torneo.EquipoTorneos = equiposTorneoConImagen;
-                //#endregion
+                #endregion
 
 
                 return Ok(torneo);

@@ -23,13 +23,27 @@ namespace fepuseAPI.Controllers
             {
                 var listArbitros = (from a in db.Arbitroes
                                     where a.LigaId == prmIdLiga
-                                    select a).ToList();
+                                    select a)
+                                    .Include(i=>i.ImagenesPersona)
+                                    .ToList();
+
                 if (listArbitros == null)
                 {
                     return BadRequest("No existen arbitros Cargados para la Liga");
                 }
                 else
                 {
+                    #region fpaz: para cada arbitro solo muestro la ultima imagen
+                    foreach (var item in listArbitros)
+                    {
+                        ImagenPersona ultimaImagen = item.ImagenesPersona.LastOrDefault();
+                        List<ImagenPersona> imagenes = new List<ImagenPersona>();
+                        imagenes.Add(ultimaImagen);
+
+                        item.ImagenesPersona = imagenes;
+                    }
+                    #endregion
+
                     return Ok(listArbitros);
                 }
 
@@ -45,11 +59,23 @@ namespace fepuseAPI.Controllers
         [ResponseType(typeof(Arbitro))]
         public IHttpActionResult GetArbitro(int id)
         {
-            Arbitro arbitro = db.Arbitroes.Find(id);
+            Arbitro arbitro = (from a in db.Arbitroes
+                              where a.Id == id
+                              select a)
+                              .Include(i=>i.ImagenesPersona)
+                              .FirstOrDefault();
+
             if (arbitro == null)
             {
                 return NotFound();
             }
+
+            #region fpaz: obtengo la ultima imagen del arbitro
+            ImagenPersona ultimaImagen = arbitro.ImagenesPersona.LastOrDefault();
+            List<ImagenPersona> imagenes = new List<ImagenPersona>();
+            imagenes.Add(ultimaImagen);
+            arbitro.ImagenesPersona = imagenes;
+            #endregion
 
             return Ok(arbitro);
         }
@@ -102,13 +128,35 @@ namespace fepuseAPI.Controllers
                 db.Arbitroes.Add(arbitro);
                 db.SaveChanges();
 
-                return Ok();
+                return Ok(arbitro);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
             
+        }
+
+        [Route("api/Arbitroes/Imagen")]
+        public IHttpActionResult PostImagenPersona(ImagenPersona imagenPersona) //fpaz: asocia una imagen subida al azure al jugador
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                db.ImagenesPersona.Add(imagenPersona);
+                db.SaveChanges();
+
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
         }
 
         // DELETE: api/Arbitroes/5

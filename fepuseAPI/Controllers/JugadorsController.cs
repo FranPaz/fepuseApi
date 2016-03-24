@@ -26,7 +26,19 @@ namespace fepuseAPI.Controllers
                                      where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
                                      select ejt.Jugador)
                                      .Include(j => j.EquiposJugadorTorneos)
+                                     .Include(i=>i.ImagenesPersona)
                                      .ToList();
+
+                #region fpaz: para cada jugador solo muestro la ultima imagen
+                foreach (var item in listJugadores)
+                {
+                    ImagenPersona ultimaImagen = item.ImagenesPersona.LastOrDefault();
+                    List<ImagenPersona> imagenes = new List<ImagenPersona>();
+                    imagenes.Add(ultimaImagen);
+
+                    item.ImagenesPersona = imagenes;
+                }
+                #endregion
 
                 return Ok(listJugadores);
             }
@@ -35,11 +47,7 @@ namespace fepuseAPI.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        //public IQueryable<Jugador> GetJugadors()
-        //{
-        //    return db.Jugadors;
-        //}
-
+       
         // GET: api/Jugadors/5
         [ResponseType(typeof(Jugador))]
         public IHttpActionResult GetJugador(int dni)
@@ -49,11 +57,20 @@ namespace fepuseAPI.Controllers
                                where (e.Dni == dni)
                                select e)
                                .Include(ejt => ejt.EquiposJugadorTorneos)
+                               .Include(i => i.ImagenesPersona )
                                .FirstOrDefault();
+
             if (jugador == null)
             {
                 return NotFound();
             }
+
+            #region fpaz: obtengo la ultima imagen del jugador
+            ImagenPersona ultimaImagen = jugador.ImagenesPersona.LastOrDefault();
+            List<ImagenPersona> imagenes = new List<ImagenPersona>();
+            imagenes.Add(ultimaImagen);
+            jugador.ImagenesPersona = imagenes;
+            #endregion
 
             return Ok(jugador);
         }
@@ -163,12 +180,34 @@ namespace fepuseAPI.Controllers
                 //db.Jugadors.Add(jugador);
                 db.SaveChanges();
 
+                return Ok(ejt.Jugador);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [Route("api/Jugadors/Imagen")]
+        public IHttpActionResult PostImagenPersona(ImagenPersona imagenPersona) //fpaz: asocia una imagen subida al azure al jugador
+        {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            try
+            {
+                db.ImagenesPersona.Add(imagenPersona);
+                db.SaveChanges();
+
                 return Ok();
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
+
         }
 
         // DELETE: api/Jugadors/5
