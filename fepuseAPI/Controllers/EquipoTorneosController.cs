@@ -31,13 +31,24 @@ namespace fepuseAPI.Controllers
                 var tablaPosiciones = (from t in db.EquipoTorneos
                                        where t.TorneoId == id
                                        select t)
-                                       .Include(e =>e.Equipo)
+                                       .Include(e =>e.Equipo.ImagenesEquipo)
                                        .OrderByDescending(t => t.Puntos);
 
                 if (tablaPosiciones == null)
                 {
                     return NotFound();
                 }
+
+                #region fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
+                foreach (var item in tablaPosiciones)
+                {
+                    ImagenEquipo ultimaImagen = item.Equipo.ImagenesEquipo.LastOrDefault();
+                    List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
+                    imagenes.Add(ultimaImagen);
+
+                    item.Equipo.ImagenesEquipo = imagenes;
+                }
+                #endregion
 
                 return Ok(tablaPosiciones);
             }

@@ -31,7 +31,8 @@ namespace fepuseAPI.Controllers
                     return BadRequest("No existen equipos cargados");
                 }
 
-                foreach (var item in listEquipos) //fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
+                #region fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
+                foreach (var item in listEquipos) 
                 {
                     ImagenEquipo ultimaImagen = item.ImagenesEquipo.LastOrDefault();
                     List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
@@ -39,6 +40,7 @@ namespace fepuseAPI.Controllers
 
                     item.ImagenesEquipo = imagenes;
                 }
+                #endregion
 
                 return Ok(listEquipos);
             }
