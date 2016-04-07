@@ -7,13 +7,13 @@ namespace fepuseAPI.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class Inicial : IMigrationMetadata
+    public sealed partial class m1 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(Inicial));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(m1));
         
         string IMigrationMetadata.Id
         {
-            get { return "201602272016235_Inicial"; }
+            get { return "201604042001223_m1"; }
         }
         
         string IMigrationMetadata.Source

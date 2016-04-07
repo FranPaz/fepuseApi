@@ -61,11 +61,28 @@ namespace fepuseAPI.Migrations
             context.Ligas.Add(liga);
             #endregion
 
+            #region Carga de Categorias
+
+            var categoria = new Categoria
+            {
+                Nombre = "Categoria Libre",
+                LigaId = liga.Id
+
+            };
+            context.Categorias.Add(categoria);
+            #endregion
+
+
+
             #region semilla para la carga de torneo
 
             var torneo = new Torneo
             {
-                Nombre= "Liga FAN"
+                Nombre = "Torneo Apertura",
+                TorneoCategoria = new TorneoCategoria { 
+                    LigaId = liga.Id,
+                    CategoriaId = categoria.Id
+                }
             };
             context.Torneos.Add(torneo);
 

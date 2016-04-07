@@ -20,6 +20,7 @@ namespace fepuseAPI.Controllers
                 // obtengo los goeadores del torneo
                 List<Goleadores> goleadores = (from ej in db.EstadisticasJugadors
                                                where ej.Partido.Fecha.torneoId == id
+                                               && ej.Partido.Finalizado == true
                                                group ej by new
                                                {
                                                    ej.Jugador
@@ -42,6 +43,7 @@ namespace fepuseAPI.Controllers
                 // obtengo los Amonestados del torneo
                 List<Amonestados> amonestados = (from ej in db.EstadisticasJugadors
                                                  where ej.Partido.Fecha.torneoId == id
+                                                 && ej.Partido.Finalizado == true
                                                  group ej by new
                                                  {
                                                      ej.Jugador
@@ -64,6 +66,7 @@ namespace fepuseAPI.Controllers
                 // obtengo los Esxpulsados del torneo
                 List<Expulsados> expulsados = (from ej in db.EstadisticasJugadors
                                                where ej.Partido.Fecha.torneoId == id
+                                               && ej.Partido.Finalizado == true
                                                group ej by new
                                                {
                                                    ej.Jugador

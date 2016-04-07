@@ -55,6 +55,10 @@ namespace fepuseAPI.Models
         public int GolesAFavor { get; set; }
         public int GolesEnContra { get; set; }
         public int DiferenciaGoles { get; set; }
+
+        //fpaz: 1 a M con torneo (uno)
+        public int? ZonaTorneoId { get; set; }
+        public virtual ZonaTorneo ZonaTorneo { get; set; }
         
     }
 }

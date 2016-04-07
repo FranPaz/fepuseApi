@@ -12,11 +12,7 @@ namespace fepuseAPI.Models
         public String FechaInicio { get; set; }
         public String FechaFin { get; set; }
         public bool Finalizado { get; set; }
-
-        //kikexp: uno a muchos con Liga
-        public int LigaId { get; set; }
-        public virtual Liga Liga { get; set; }        
-
+        
         //kikexp: uno a muchos con Fecha(muchos)
         public virtual ICollection<Fecha> Fechas { get; set; }
 
@@ -28,6 +24,24 @@ namespace fepuseAPI.Models
 
         //fpaz: 1 a M con EquipoTorneo (muchos)
         public virtual ICollection<EquipoTorneo> EquipoTorneos { get; set; }
+       
+        //fpaz: 1 a m con TorneoCategoria(uno)
+        public int TorneoCategoriaId { get; set; }
+        public virtual TorneoCategoria TorneoCategoria { get; set; }
 
+        public virtual ICollection<ZonaTorneo> ZonasTorneo { get; set; }
+
+
+    }
+    public class ZonaTorneo 
+    {
+        public int Id { get; set; }
+        public string Descripcion { get; set; }
+
+        //fpaz: 1 a M con torneo (uno)
+        public int TorneoId { get; set; }
+        public virtual Torneo Torneo { get; set; }
+
+        public virtual ICollection<EquipoTorneo> EquiposTorneo { get; set; }
     }
 }

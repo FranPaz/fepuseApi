@@ -26,6 +26,10 @@ namespace fepuseAPI.Models
         //kikexp: 1 a m con Profesion (uno)
         public int? ProfesionId { get; set; }
         public virtual Profesion Profesion { get; set; }
+
+        //fpaz: 1 a m con Puesto (uno)
+        public int? PuestoJugadorId { get; set; }
+        public PuestoJugador PuestoJugador { get; set; }
     }
 
     public class EquipoJugadorTorneo  //clase que va a tener la info sobre en que equipo jugo un jugador y en que torneo
@@ -42,6 +46,8 @@ namespace fepuseAPI.Models
         //fpaz; 1 a m con equipo (uno)
         public int EquipoId { get; set; }
         public virtual Equipo Equipo { get; set; }
+
+        public int NumeroCamiseta { get; set; }
 
     }
 }
