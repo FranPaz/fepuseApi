@@ -21,7 +21,7 @@ namespace fepuseAPI.Migrations
         protected override void Seed(FepuseAPI_Context context)
         {
             //fpaz:Semillas para el llenado inicial de la bd
-            
+
             #region Carga de ApplicationUser
             var manager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new FepuseAPI_Context()));
 
@@ -36,7 +36,27 @@ namespace fepuseAPI.Migrations
                 LastName = "Administrador",
                 Level = 1,
                 JoinDate = DateTime.Now.AddYears(-3),
-                Liga = new Liga {Nombre="Liga Fepuse"},
+                #region Carga de liga
+
+                Liga = new Liga
+                {
+                    Nombre = "Liga Fepuse",
+                    Categorias = new List<Categoria>
+                {
+                    new Categoria {
+                        Nombre="Libre",
+                        Torneos= new List<Torneo>{
+                            new Torneo{
+                                Nombre = "Torneo Apertura"
+                            }
+                        }
+                    }
+                }
+                }
+                #endregion
+
+
+                //Liga = new Liga { Nombre = "Liga Fepuse" },
             };
 
             manager.Create(user, "qwerty123");
@@ -52,41 +72,30 @@ namespace fepuseAPI.Migrations
 
             manager.AddToRoles(adminUser.Id, new string[] { "SuperAdmin", "Admin" });
             #endregion
-            #region Carga de liga
-
-            var liga = new Liga
-            {
-                Nombre = "Liga Fepuse"
-            };
-            context.Ligas.Add(liga);
-            #endregion
 
             #region Carga de Categorias
 
-            var categoria = new Categoria
-            {
-                Nombre = "Categoria Libre",
-                LigaId = liga.Id
+            //var categoria = new Categoria
+            //{
+            //    Nombre = "Categoria Libre",
+            //    LigaId = liga.Id
 
-            };
-            context.Categorias.Add(categoria);
+            //};
+            //context.Categorias.Add(categoria);
             #endregion
 
 
 
             #region semilla para la carga de torneo
 
-            var torneo = new Torneo
-            {
-                Nombre = "Torneo Apertura",
-                TorneoCategoria = new TorneoCategoria { 
-                    LigaId = liga.Id,
-                    CategoriaId = categoria.Id
-                }
-            };
-            context.Torneos.Add(torneo);
+            //var torneo = new Torneo
+            //{
+            //    Nombre = "Torneo Apertura"
 
-            #endregion            
+            //};
+            //context.Torneos.Add(torneo);
+
+            #endregion
 
             base.Seed(context);
         }

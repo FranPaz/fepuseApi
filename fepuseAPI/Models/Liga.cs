@@ -14,8 +14,8 @@ namespace fepuseAPI.Models
         public int Id { get; set; }
         public String Nombre { get; set; }
 
-        //fpaz: uno a muchos con TorneosCategoria(muchos)
-        public virtual ICollection<TorneoCategoria> TorneosCategoria { get; set; } // fpaz: tiene el array de torneos segun la categoria
+        //fpaz: relacion 1 a m con Categoria (muchos)
+        public virtual ICollection<Categoria> Categorias { get; set; }
 
         //fpaz: relacion 1 a m con ImagenLiga (muchos)
         public virtual ICollection<ImagenLiga> ImagenesLiga { get; set; }
@@ -25,8 +25,7 @@ namespace fepuseAPI.Models
         //fpaz: 1 a m  con arbitros (muchos)
         public virtual ICollection<Arbitro> Arbitros { get; set; }
 
-        //fpaz: 1 a m con Categorias (muchos)
-        public virtual ICollection<Categoria> Categorias { get; set; }
+      
 
     }
 }

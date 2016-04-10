@@ -257,13 +257,9 @@
     <Compile Include="Controllers\SedesController.cs" />
     <Compile Include="Controllers\TorneosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Migrations\201604041924562_inicial.cs" />
-    <Compile Include="Migrations\201604041924562_inicial.Designer.cs">
-      <DependentUpon>201604041924562_inicial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604042001223_m1.cs" />
-    <Compile Include="Migrations\201604042001223_m1.Designer.cs">
-      <DependentUpon>201604042001223_m1.cs</DependentUpon>
+    <Compile Include="Migrations\201604100046103_inicial.cs" />
+    <Compile Include="Migrations\201604100046103_inicial.Designer.cs">
+      <DependentUpon>201604100046103_inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -290,7 +286,6 @@
     <Compile Include="Models\RoleBindingModels.cs" />
     <Compile Include="Models\Sede.cs" />
     <Compile Include="Models\Torneo.cs" />
-    <Compile Include="Models\TorneoCategoria.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Providers\BlobStorageUploadProvider.cs" />
     <Compile Include="Providers\CustomJwtFormat.cs" />
@@ -359,11 +354,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604041924562_inicial.resx">
-      <DependentUpon>201604041924562_inicial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604042001223_m1.resx">
-      <DependentUpon>201604042001223_m1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604100046103_inicial.resx">
+      <DependentUpon>201604100046103_inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

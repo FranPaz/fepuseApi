@@ -49,7 +49,6 @@ public class FepuseAPI_Context : IdentityDbContext<ApplicationUser>
 
     public System.Data.Entity.DbSet<fepuseAPI.Models.Profesion> Profesions { get; set; }
     public System.Data.Entity.DbSet<fepuseAPI.Models.Categoria> Categorias { get; set; }
-    public System.Data.Entity.DbSet<fepuseAPI.Models.TorneoCategoria> TorneosCategoria { get; set; }
     public System.Data.Entity.DbSet<fepuseAPI.Models.PuestoJugador> PuestosJugadores { get; set; }
 
 

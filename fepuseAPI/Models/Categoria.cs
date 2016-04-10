@@ -15,7 +15,7 @@ namespace fepuseAPI.Models
         public int LigaId { get; set; }
         public virtual Liga Liga { get; set; }
 
-        //fpaz: uno a muchos con TorneosCategoria(muchos)
-        public virtual ICollection<TorneoCategoria> TorneosCategoria { get; set; } // fpaz: tiene el array de torneos segun la categoria
+        //fpaz: 1 a M con Torneo (muchos)
+        public virtual ICollection<Torneo> Torneos { get; set; }
     }
 }

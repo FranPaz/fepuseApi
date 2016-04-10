@@ -22,7 +22,7 @@ namespace fepuseAPI.Controllers
             try
             {
                 var listTorneos = (from t in db.Torneos
-                                   where t.TorneoCategoria.LigaId == prmIdLiga
+                                   where t.Categoria.LigaId == prmIdLiga
                                    select t)
                                    .Include(i => i.ImagenesTorneo)
                                    .ToList();
@@ -60,7 +60,7 @@ namespace fepuseAPI.Controllers
             {
                 Torneo torneo = (from t in db.Torneos
                                  where t.Id == prmIdTorneo
-                                 && t.TorneoCategoria.LigaId == prmIdLiga
+                                 && t.Categoria.LigaId == prmIdLiga
                                  select t)
                                  .Include(e => e.EquipoTorneos
                                      .Select(eq => eq.Equipo.ImagenesEquipo)
@@ -192,7 +192,7 @@ namespace fepuseAPI.Controllers
                     torneoOrig.Nombre = torneo.Nombre;
                     torneoOrig.FechaInicio = torneo.FechaInicio;
                     torneoOrig.FechaFin = torneo.FechaFin;
-                    torneoOrig.TorneoCategoria.LigaId = torneo.TorneoCategoria.LigaId;
+                    torneoOrig.CategoriaId= torneo.CategoriaId;
 
                 }
                 db.SaveChanges();

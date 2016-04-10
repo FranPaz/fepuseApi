@@ -82,7 +82,7 @@ namespace fepuseAPI.Controllers
             {
                 // obtengo los goeadores del torneo
                 List<Jugador> jugadores = (from t in db.EquiposJugadorTorneos
-                                           join l in db.Ligas on t.Torneo.TorneoCategoria.LigaId equals l.Id
+                                           join l in db.Ligas on t.Torneo.Categoria.LigaId equals l.Id
                                            where l.Id == prmLigaId
                                            group t by new
                                            {
