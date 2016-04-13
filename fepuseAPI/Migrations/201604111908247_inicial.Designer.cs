@@ -13,7 +13,7 @@ namespace fepuseAPI.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201604100046103_inicial"; }
+            get { return "201604111908247_inicial"; }
         }
         
         string IMigrationMetadata.Source

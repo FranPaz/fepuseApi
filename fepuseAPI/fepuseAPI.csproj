@@ -257,9 +257,10 @@
     <Compile Include="Controllers\SedesController.cs" />
     <Compile Include="Controllers\TorneosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
-    <Compile Include="Migrations\201604100046103_inicial.cs" />
-    <Compile Include="Migrations\201604100046103_inicial.Designer.cs">
-      <DependentUpon>201604100046103_inicial.cs</DependentUpon>
+    <Compile Include="Controllers\ZonaTorneosController.cs" />
+    <Compile Include="Migrations\201604111908247_inicial.cs" />
+    <Compile Include="Migrations\201604111908247_inicial.Designer.cs">
+      <DependentUpon>201604111908247_inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -354,8 +355,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604100046103_inicial.resx">
-      <DependentUpon>201604100046103_inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604111908247_inicial.resx">
+      <DependentUpon>201604111908247_inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -29,7 +29,7 @@ namespace fepuseAPI.Controllers
             try
             {
                 var tablaPosiciones = (from t in db.EquipoTorneos
-                                       where t.TorneoId == id
+                                       where t.ZonaTorneo.TorneoId == id
                                        select t)
                                        .Include(e =>e.Equipo.ImagenesEquipo)
                                        .OrderByDescending(t => t.Puntos);
@@ -73,7 +73,7 @@ namespace fepuseAPI.Controllers
                 {
                     //fpaz: obtengo los datos del equipo al que le voy a actualizar sus estadisticas
                     var datosEquipoTorneo = (from et in db.EquipoTorneos
-                                             where et.TorneoId == item.TorneoId
+                                             where et.ZonaTorneo.TorneoId == item.ZonaTorneo.TorneoId
                                              && et.EquipoId == item.EquipoId
                                              select et).FirstOrDefault();
 

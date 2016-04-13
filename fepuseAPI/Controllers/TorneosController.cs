@@ -62,9 +62,7 @@ namespace fepuseAPI.Controllers
                                  where t.Id == prmIdTorneo
                                  && t.Categoria.LigaId == prmIdLiga
                                  select t)
-                                 .Include(e => e.EquipoTorneos
-                                     .Select(eq => eq.Equipo.ImagenesEquipo)
-                                     )
+                                 .Include(c => c.Categoria)
                                  .Include(f => f.Fechas)
                                  .Include(i=>i.ImagenesTorneo)
                                  .FirstOrDefault();
@@ -79,27 +77,6 @@ namespace fepuseAPI.Controllers
                 List<ImagenTorneo> imagenes = new List<ImagenTorneo>();
                 imagenes.Add(ultimaImagen);
                 torneo.ImagenesTorneo = imagenes;
-                
-                #region fpaz: obtengo los logos actuales de los equipos
-                var equiposTorneo = torneo.EquipoTorneos.ToList();
-                
-                List<EquipoTorneo> equiposTorneoConImagen = new List<EquipoTorneo>();
-
-                foreach (var item in equiposTorneo)
-                {
-                         ImagenEquipo ultimaImagenEquipo = item.Equipo.ImagenesEquipo.LastOrDefault();
-                        List<ImagenEquipo> imagenesEquipo = new List<ImagenEquipo>();
-                        imagenesEquipo.Add(ultimaImagenEquipo);
-
-                        item.Equipo.ImagenesEquipo = imagenesEquipo;
-  
-                        equiposTorneoConImagen.Add(item);
-
-                }
-
-                torneo.EquipoTorneos = equiposTorneoConImagen;
-                #endregion
-
 
                 return Ok(torneo);
             }
@@ -128,67 +105,11 @@ namespace fepuseAPI.Controllers
             {
                 var torneoOrig = (from t in db.Torneos //obtengo los datos originales del tipo de habitacion que voy a modificar
                                   where t.Id == id
-                                  select t)
-                                      .Include(e => e.EquipoTorneos)
+                                  select t)                                      
                                       .FirstOrDefault();
 
                 if (torneoOrig != null)
                 {
-                    #region update de Equipos que juegan el torneo
-                    var equiposOriginales = torneoOrig.EquipoTorneos;
-
-                    // parte para carga de nuevos equipos al torneo
-                    List<EquipoTorneo> equiposAgregados = new List<EquipoTorneo>();
-                    foreach (var equipoAdd in torneo.EquipoTorneos)
-                    {
-                        var equipo = (from equipoOrig in equiposOriginales // verifico si el equipo esta en el obj modificado
-                                      where equipoOrig.EquipoId == equipoAdd.EquipoId
-                                      select equipoOrig).FirstOrDefault();
-
-                        if (equipo == null) // si no encontro el equipo agrego al array para su carga
-                        {
-                            var eq = db.Equipoes.Find(equipoAdd.EquipoId);
-                            if (eq != null)
-                            {
-                                var et = new EquipoTorneo()
-                                {
-                                    EquipoId = eq.Id,
-                                    TorneoId = torneoOrig.Id
-                                };
-
-                                equiposAgregados.Add(et);
-                            }
-                        }
-                    }
-
-
-                    //parte para eliminacion de equipos
-                    List<EquipoTorneo> equiposEliminados = new List<EquipoTorneo>();
-                    foreach (var equipoOrig in equiposOriginales) // eliminacion de equipos que ya no estan en el array
-                    {
-                        var eo = (from e in torneo.EquipoTorneos // verifico si el equipo original esta en el obj modificado
-                                  where equipoOrig.EquipoId == e.EquipoId 
-                                  select e).FirstOrDefault();
-
-                        if (eo == null) // si no encontro el equipo la elimino del array
-                        {
-                            equiposEliminados.Add(equipoOrig);
-                        }
-                    }
-
-                    foreach (var item in equiposAgregados)
-                    {
-                        db.EquipoTorneos.Add(item);
-                        //torneoOrig.EquipoTorneos.Add(item);
-                    }
-
-                    foreach (var item in equiposEliminados)
-                    {
-                        db.EquipoTorneos.Remove(item);
-                        //torneoOrig.EquipoTorneos.Remove(item);
-                    }
-                    #endregion
-
                     torneoOrig.Nombre = torneo.Nombre;
                     torneoOrig.FechaInicio = torneo.FechaInicio;
                     torneoOrig.FechaFin = torneo.FechaFin;

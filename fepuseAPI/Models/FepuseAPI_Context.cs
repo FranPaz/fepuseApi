@@ -59,6 +59,8 @@ public class FepuseAPI_Context : IdentityDbContext<ApplicationUser>
         return new FepuseAPI_Context();
     }
 
+    public System.Data.Entity.DbSet<fepuseAPI.Models.ZonaTorneo> ZonaTorneos { get; set; }
+
     
 
 }

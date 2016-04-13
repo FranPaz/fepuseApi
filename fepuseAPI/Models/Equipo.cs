@@ -39,9 +39,14 @@ namespace fepuseAPI.Models
     public class EquipoTorneo
     {
         public int Id { get; set; }
+
         //fpaz: 1 a M con torneo (uno)
-        public int TorneoId { get; set; }
-        public virtual Torneo Torneo { get; set; }
+        public int ZonaTorneoId { get; set; }
+        public virtual ZonaTorneo ZonaTorneo { get; set; }
+        
+        ////fpaz: 1 a M con torneo (uno)
+        //public int TorneoId { get; set; }
+        //public virtual Torneo Torneo { get; set; }
 
         //fpaz: 1 a M con Equipo (uno)
         public int EquipoId { get; set; }
@@ -55,10 +60,6 @@ namespace fepuseAPI.Models
         public int GolesAFavor { get; set; }
         public int GolesEnContra { get; set; }
         public int DiferenciaGoles { get; set; }
-
-        //fpaz: 1 a M con torneo (uno)
-        public int? ZonaTorneoId { get; set; }
-        public virtual ZonaTorneo ZonaTorneo { get; set; }
         
     }
 }
