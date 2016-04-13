@@ -48,6 +48,39 @@ namespace fepuseAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        public IHttpActionResult GetEquipos(int prmIdTorneo) //fpaz: trae los datos de todos los esquipos del torneo
+        {
+            try
+            {
+                var listEquipos = (from l in db.EquipoTorneos
+                                   where l.ZonaTorneo.TorneoId == prmIdTorneo
+                                   select l.Equipo)
+                                   .Include(i => i.ImagenesEquipo);
+
+                if (listEquipos == null)
+                {
+                    return BadRequest("No existen equipos cargados");
+                }
+
+                #region fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
+                foreach (var item in listEquipos)
+                {
+                    ImagenEquipo ultimaImagen = item.ImagenesEquipo.LastOrDefault();
+                    List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
+                    imagenes.Add(ultimaImagen);
+
+                    item.ImagenesEquipo = imagenes;
+                }
+                #endregion
+
+                return Ok(listEquipos);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }  
 
         // GET: api/Equipoes/5
