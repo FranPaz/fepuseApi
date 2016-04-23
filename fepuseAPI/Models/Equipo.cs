@@ -24,9 +24,13 @@ namespace fepuseAPI.Models
         //fpaz: relacion 1 a m con ImagenEquipo (muchos)
         public virtual ICollection<ImagenEquipo> ImagenesEquipo { get; set; }
 
-        // 1 a m con liga
-        public int? LigaId { get; set; }
-        public virtual Liga Liga { get; set; }
+        //// 1 a m con liga
+        //public int? LigaId { get; set; }
+        //public virtual Liga Liga { get; set; }
+
+        // 1 a m con Categoria (uno)
+        public int? CategoriaId { get; set; }
+        public virtual Categoria Categoria { get; set; }
 
         //fpaz: 1 a M con EquipoTorneo (muchos)
         public virtual ICollection<EquipoTorneo> EquipoTorneos { get; set; }

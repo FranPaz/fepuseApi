@@ -3,7 +3,7 @@ namespace fepuseAPI.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class inicial : DbMigration
+    public partial class m1 : DbMigration
     {
         public override void Up()
         {
@@ -60,67 +60,14 @@ namespace fepuseAPI.Migrations
                         Id = c.Int(nullable: false, identity: true),
                         Nombre = c.String(),
                         AlDia = c.Boolean(nullable: false),
-                        LigaId = c.Int(),
+                        CategoriaId = c.Int(),
+                        Liga_Id = c.Int(),
                     })
                 .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Ligas", t => t.LigaId)
-                .Index(t => t.LigaId);
-            
-            CreateTable(
-                "dbo.Partidoes",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Dia = c.String(),
-                        Hora = c.String(),
-                        GolesLocal = c.Int(nullable: false),
-                        GolesVisitante = c.Int(nullable: false),
-                        Incidencias = c.String(),
-                        Finalizado = c.Boolean(nullable: false),
-                        FechaId = c.Int(nullable: false),
-                        EquipoLocalId = c.Int(),
-                        EquipoVisitanteId = c.Int(),
-                        ArbitroId = c.Int(),
-                        SedeId = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Arbitros", t => t.ArbitroId)
-                .ForeignKey("dbo.Equipoes", t => t.EquipoLocalId)
-                .ForeignKey("dbo.Equipoes", t => t.EquipoVisitanteId)
-                .ForeignKey("dbo.Fechas", t => t.FechaId, cascadeDelete: true)
-                .ForeignKey("dbo.Sedes", t => t.SedeId)
-                .Index(t => t.FechaId)
-                .Index(t => t.EquipoLocalId)
-                .Index(t => t.EquipoVisitanteId)
-                .Index(t => t.ArbitroId)
-                .Index(t => t.SedeId);
-            
-            CreateTable(
-                "dbo.Fechas",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        NumFecha = c.Int(nullable: false),
-                        torneoId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Torneos", t => t.torneoId, cascadeDelete: true)
-                .Index(t => t.torneoId);
-            
-            CreateTable(
-                "dbo.Torneos",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(),
-                        FechaInicio = c.String(),
-                        FechaFin = c.String(),
-                        Finalizado = c.Boolean(nullable: false),
-                        CategoriaId = c.Int(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Categorias", t => t.CategoriaId, cascadeDelete: true)
-                .Index(t => t.CategoriaId);
+                .ForeignKey("dbo.Categorias", t => t.CategoriaId)
+                .ForeignKey("dbo.Ligas", t => t.Liga_Id)
+                .Index(t => t.CategoriaId)
+                .Index(t => t.Liga_Id);
             
             CreateTable(
                 "dbo.Categorias",
@@ -157,6 +104,93 @@ namespace fepuseAPI.Migrations
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.Ligas", t => t.LigaId, cascadeDelete: true)
                 .Index(t => t.LigaId);
+            
+            CreateTable(
+                "dbo.Torneos",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(),
+                        FechaInicio = c.String(),
+                        FechaFin = c.String(),
+                        Finalizado = c.Boolean(nullable: false),
+                        CategoriaId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Categorias", t => t.CategoriaId, cascadeDelete: true)
+                .Index(t => t.CategoriaId);
+            
+            CreateTable(
+                "dbo.Fechas",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        NumFecha = c.Int(nullable: false),
+                        torneoId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Torneos", t => t.torneoId, cascadeDelete: true)
+                .Index(t => t.torneoId);
+            
+            CreateTable(
+                "dbo.Partidoes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Dia = c.String(),
+                        Hora = c.String(),
+                        GolesLocal = c.Int(nullable: false),
+                        GolesVisitante = c.Int(nullable: false),
+                        Incidencias = c.String(),
+                        Finalizado = c.Boolean(nullable: false),
+                        FechaId = c.Int(nullable: false),
+                        EquipoLocalId = c.Int(),
+                        EquipoVisitanteId = c.Int(),
+                        ArbitroId = c.Int(),
+                        SedeId = c.Int(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Arbitros", t => t.ArbitroId)
+                .ForeignKey("dbo.Equipoes", t => t.EquipoLocalId)
+                .ForeignKey("dbo.Equipoes", t => t.EquipoVisitanteId)
+                .ForeignKey("dbo.Fechas", t => t.FechaId, cascadeDelete: true)
+                .ForeignKey("dbo.Sedes", t => t.SedeId)
+                .Index(t => t.FechaId)
+                .Index(t => t.EquipoLocalId)
+                .Index(t => t.EquipoVisitanteId)
+                .Index(t => t.ArbitroId)
+                .Index(t => t.SedeId);
+            
+            CreateTable(
+                "dbo.PartidoJugadors",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        JugadorId = c.Int(nullable: false),
+                        PartidoId = c.Int(nullable: false),
+                        EquipoId = c.Int(nullable: false),
+                        Goles = c.Int(nullable: false),
+                        TarjetasAmarillas = c.Int(nullable: false),
+                        TarjetasRojas = c.Int(nullable: false),
+                        InformeArbitro = c.String(),
+                        ObservacionesAdiconales = c.String(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Equipoes", t => t.EquipoId, cascadeDelete: true)
+                .ForeignKey("dbo.Jugadores", t => t.JugadorId)
+                .ForeignKey("dbo.Partidoes", t => t.PartidoId, cascadeDelete: true)
+                .Index(t => t.JugadorId)
+                .Index(t => t.PartidoId)
+                .Index(t => t.EquipoId);
+            
+            CreateTable(
+                "dbo.Sedes",
+                c => new
+                    {
+                        Id = c.Int(nullable: false, identity: true),
+                        Nombre = c.String(),
+                    })
+                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.ImagenTorneos",
@@ -205,37 +239,6 @@ namespace fepuseAPI.Migrations
                 .ForeignKey("dbo.ZonaTorneos", t => t.ZonaTorneoId, cascadeDelete: true)
                 .Index(t => t.ZonaTorneoId)
                 .Index(t => t.EquipoId);
-            
-            CreateTable(
-                "dbo.PartidoJugadors",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        JugadorId = c.Int(nullable: false),
-                        PartidoId = c.Int(nullable: false),
-                        EquipoId = c.Int(nullable: false),
-                        Goles = c.Int(nullable: false),
-                        TarjetasAmarillas = c.Int(nullable: false),
-                        TarjetasRojas = c.Int(nullable: false),
-                        InformeArbitro = c.String(),
-                        ObservacionesAdiconales = c.String(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Equipoes", t => t.EquipoId, cascadeDelete: true)
-                .ForeignKey("dbo.Jugadores", t => t.JugadorId)
-                .ForeignKey("dbo.Partidoes", t => t.PartidoId, cascadeDelete: true)
-                .Index(t => t.JugadorId)
-                .Index(t => t.PartidoId)
-                .Index(t => t.EquipoId);
-            
-            CreateTable(
-                "dbo.Sedes",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Nombre = c.String(),
-                    })
-                .PrimaryKey(t => t.Id);
             
             CreateTable(
                 "dbo.ImagenEquipoes",
@@ -396,24 +399,25 @@ namespace fepuseAPI.Migrations
             DropForeignKey("dbo.EquipoJugadorTorneos", "JugadorId", "dbo.Jugadores");
             DropForeignKey("dbo.ImagenEquipoes", "EquipoId", "dbo.Equipoes");
             DropForeignKey("dbo.EquipoJugadorTorneos", "EquipoId", "dbo.Equipoes");
-            DropForeignKey("dbo.Partidoes", "SedeId", "dbo.Sedes");
-            DropForeignKey("dbo.PartidoJugadors", "PartidoId", "dbo.Partidoes");
-            DropForeignKey("dbo.PartidoJugadors", "JugadorId", "dbo.Jugadores");
-            DropForeignKey("dbo.PartidoJugadors", "EquipoId", "dbo.Equipoes");
             DropForeignKey("dbo.ZonaTorneos", "TorneoId", "dbo.Torneos");
             DropForeignKey("dbo.EquipoTorneos", "ZonaTorneoId", "dbo.ZonaTorneos");
             DropForeignKey("dbo.EquipoTorneos", "EquipoId", "dbo.Equipoes");
             DropForeignKey("dbo.ImagenTorneos", "TorneoId", "dbo.Torneos");
             DropForeignKey("dbo.Fechas", "torneoId", "dbo.Torneos");
-            DropForeignKey("dbo.EquipoJugadorTorneos", "TorneoId", "dbo.Torneos");
-            DropForeignKey("dbo.Torneos", "CategoriaId", "dbo.Categorias");
-            DropForeignKey("dbo.ImagenLigas", "LigaId", "dbo.Ligas");
-            DropForeignKey("dbo.Equipoes", "LigaId", "dbo.Ligas");
-            DropForeignKey("dbo.Categorias", "LigaId", "dbo.Ligas");
+            DropForeignKey("dbo.Partidoes", "SedeId", "dbo.Sedes");
+            DropForeignKey("dbo.PartidoJugadors", "PartidoId", "dbo.Partidoes");
+            DropForeignKey("dbo.PartidoJugadors", "JugadorId", "dbo.Jugadores");
+            DropForeignKey("dbo.PartidoJugadors", "EquipoId", "dbo.Equipoes");
             DropForeignKey("dbo.Partidoes", "FechaId", "dbo.Fechas");
             DropForeignKey("dbo.Partidoes", "EquipoVisitanteId", "dbo.Equipoes");
             DropForeignKey("dbo.Partidoes", "EquipoLocalId", "dbo.Equipoes");
             DropForeignKey("dbo.Partidoes", "ArbitroId", "dbo.Arbitros");
+            DropForeignKey("dbo.EquipoJugadorTorneos", "TorneoId", "dbo.Torneos");
+            DropForeignKey("dbo.Torneos", "CategoriaId", "dbo.Categorias");
+            DropForeignKey("dbo.ImagenLigas", "LigaId", "dbo.Ligas");
+            DropForeignKey("dbo.Equipoes", "Liga_Id", "dbo.Ligas");
+            DropForeignKey("dbo.Categorias", "LigaId", "dbo.Ligas");
+            DropForeignKey("dbo.Equipoes", "CategoriaId", "dbo.Categorias");
             DropForeignKey("dbo.ImagenPersonas", "PersonaId", "dbo.Personas");
             DropIndex("dbo.Jugadores", new[] { "PuestoJugadorId" });
             DropIndex("dbo.Jugadores", new[] { "ProfesionId" });
@@ -428,23 +432,24 @@ namespace fepuseAPI.Migrations
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
             DropIndex("dbo.ImagenEquipoes", new[] { "EquipoId" });
-            DropIndex("dbo.PartidoJugadors", new[] { "EquipoId" });
-            DropIndex("dbo.PartidoJugadors", new[] { "PartidoId" });
-            DropIndex("dbo.PartidoJugadors", new[] { "JugadorId" });
             DropIndex("dbo.EquipoTorneos", new[] { "EquipoId" });
             DropIndex("dbo.EquipoTorneos", new[] { "ZonaTorneoId" });
             DropIndex("dbo.ZonaTorneos", new[] { "TorneoId" });
             DropIndex("dbo.ImagenTorneos", new[] { "TorneoId" });
-            DropIndex("dbo.ImagenLigas", new[] { "LigaId" });
-            DropIndex("dbo.Categorias", new[] { "LigaId" });
-            DropIndex("dbo.Torneos", new[] { "CategoriaId" });
-            DropIndex("dbo.Fechas", new[] { "torneoId" });
+            DropIndex("dbo.PartidoJugadors", new[] { "EquipoId" });
+            DropIndex("dbo.PartidoJugadors", new[] { "PartidoId" });
+            DropIndex("dbo.PartidoJugadors", new[] { "JugadorId" });
             DropIndex("dbo.Partidoes", new[] { "SedeId" });
             DropIndex("dbo.Partidoes", new[] { "ArbitroId" });
             DropIndex("dbo.Partidoes", new[] { "EquipoVisitanteId" });
             DropIndex("dbo.Partidoes", new[] { "EquipoLocalId" });
             DropIndex("dbo.Partidoes", new[] { "FechaId" });
-            DropIndex("dbo.Equipoes", new[] { "LigaId" });
+            DropIndex("dbo.Fechas", new[] { "torneoId" });
+            DropIndex("dbo.Torneos", new[] { "CategoriaId" });
+            DropIndex("dbo.ImagenLigas", new[] { "LigaId" });
+            DropIndex("dbo.Categorias", new[] { "LigaId" });
+            DropIndex("dbo.Equipoes", new[] { "Liga_Id" });
+            DropIndex("dbo.Equipoes", new[] { "CategoriaId" });
             DropIndex("dbo.EquipoJugadorTorneos", new[] { "EquipoId" });
             DropIndex("dbo.EquipoJugadorTorneos", new[] { "TorneoId" });
             DropIndex("dbo.EquipoJugadorTorneos", new[] { "JugadorId" });
@@ -459,17 +464,17 @@ namespace fepuseAPI.Migrations
             DropTable("dbo.PuestoJugadors");
             DropTable("dbo.Profesions");
             DropTable("dbo.ImagenEquipoes");
-            DropTable("dbo.Sedes");
-            DropTable("dbo.PartidoJugadors");
             DropTable("dbo.EquipoTorneos");
             DropTable("dbo.ZonaTorneos");
             DropTable("dbo.ImagenTorneos");
+            DropTable("dbo.Sedes");
+            DropTable("dbo.PartidoJugadors");
+            DropTable("dbo.Partidoes");
+            DropTable("dbo.Fechas");
+            DropTable("dbo.Torneos");
             DropTable("dbo.ImagenLigas");
             DropTable("dbo.Ligas");
             DropTable("dbo.Categorias");
-            DropTable("dbo.Torneos");
-            DropTable("dbo.Fechas");
-            DropTable("dbo.Partidoes");
             DropTable("dbo.Equipoes");
             DropTable("dbo.EquipoJugadorTorneos");
             DropTable("dbo.ImagenPersonas");

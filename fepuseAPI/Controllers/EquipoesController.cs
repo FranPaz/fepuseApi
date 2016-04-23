@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using fepuseAPI.ClasesAuxiliares;
 using fepuseAPI.Models;
 
 namespace fepuseAPI.Controllers
@@ -17,14 +18,15 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Equipoes
-        public IHttpActionResult GetEquipoes(int prmIdLiga) //fpaz: trae los datos de todos los esquipos de la liga
+        public IHttpActionResult GetEquipoes(int prmIdLiga) //fpaz: trae los datos de todos los equipos de la liga agrupados por categoria
         {
             try
-            {
-                var listEquipos = (from l in db.Equipoes
-                                   where l.LigaId == prmIdLiga
-                                   select l)
-                                   .Include(i=>i.ImagenesEquipo);
+            {                  
+                var listEquipos = (from c in db.Categorias //obtengo las categorias y todos sus equipos
+                                   where c.LigaId == prmIdLiga
+                                   select c)
+                                   .Include(e=>e.Equipos.Select(i => i.ImagenesEquipo))                                                                      
+                                   .ToList();
 
                 if (listEquipos == null)
                 {
@@ -32,13 +34,16 @@ namespace fepuseAPI.Controllers
                 }
 
                 #region fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
-                foreach (var item in listEquipos) 
+                foreach (var categoria in listEquipos)
                 {
-                    ImagenEquipo ultimaImagen = item.ImagenesEquipo.LastOrDefault();
-                    List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
-                    imagenes.Add(ultimaImagen);
+                    foreach (var item in categoria.Equipos)
+                    {
+                        ImagenEquipo ultimaImagen = item.ImagenesEquipo.LastOrDefault();
+                        List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
+                        imagenes.Add(ultimaImagen);
 
-                    item.ImagenesEquipo = imagenes;
+                        item.ImagenesEquipo = imagenes;                        
+                    }                    
                 }
                 #endregion
 

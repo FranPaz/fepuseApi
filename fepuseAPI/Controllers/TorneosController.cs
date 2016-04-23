@@ -65,6 +65,7 @@ namespace fepuseAPI.Controllers
                                  .Include(c => c.Categoria)
                                  .Include(f => f.Fechas)
                                  .Include(i=>i.ImagenesTorneo)
+                                 .Include(z => z.ZonasTorneo.Select(et=>et.EquiposTorneo.Select(e => e.Equipo)))
                                  .FirstOrDefault();
 
                 if (torneo == null)

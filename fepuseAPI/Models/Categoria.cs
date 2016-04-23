@@ -17,5 +17,8 @@ namespace fepuseAPI.Models
 
         //fpaz: 1 a M con Torneo (muchos)
         public virtual ICollection<Torneo> Torneos { get; set; }
+
+        //fpaz: 1 a M con Equipos (muchos)
+        public virtual ICollection<Equipo> Equipos { get; set; }
     }
 }

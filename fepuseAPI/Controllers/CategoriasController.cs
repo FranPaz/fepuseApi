@@ -17,9 +17,28 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/Categorias
-        public IQueryable<Categoria> GetCategorias()
+        public IHttpActionResult GetCategorias(int prmIdLiga)
         {
-            return db.Categorias;
+            try
+            {
+               var listCategorias = (from c in db.Categorias //obtengo las categorias de la Liga
+                                   where c.LigaId == prmIdLiga
+                                   select c)                                   
+                                   .ToList();
+               
+                if (listCategorias == null)
+               {
+                   return BadRequest("No existen Categorias cargadas");
+               }
+                else
+                {
+                    return Ok(listCategorias);
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET: api/Categorias/5

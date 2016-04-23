@@ -236,6 +236,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="ClasesAuxiliares\EquipoCategoria.cs" />
     <Compile Include="ClasesAuxiliares\Estadisticas.cs" />
     <Compile Include="ClasesAuxiliares\InfoPartidoFixtureFecha.cs" />
     <Compile Include="Controllers\AccountsController.cs" />
@@ -258,9 +259,9 @@
     <Compile Include="Controllers\TorneosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\ZonaTorneosController.cs" />
-    <Compile Include="Migrations\201604111908247_inicial.cs" />
-    <Compile Include="Migrations\201604111908247_inicial.Designer.cs">
-      <DependentUpon>201604111908247_inicial.cs</DependentUpon>
+    <Compile Include="Migrations\201604211959418_m1.cs" />
+    <Compile Include="Migrations\201604211959418_m1.Designer.cs">
+      <DependentUpon>201604211959418_m1.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -355,8 +356,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604111908247_inicial.resx">
-      <DependentUpon>201604111908247_inicial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201604211959418_m1.resx">
+      <DependentUpon>201604211959418_m1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
