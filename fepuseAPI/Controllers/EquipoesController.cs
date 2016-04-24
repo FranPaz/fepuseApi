@@ -86,7 +86,7 @@ namespace fepuseAPI.Controllers
             {
                 return BadRequest(ex.Message);
             }
-        }  
+        }
 
         // GET: api/Equipoes/5
         [ResponseType(typeof(Equipo))]

@@ -45,13 +45,36 @@ namespace fepuseAPI.Controllers
         [ResponseType(typeof(Categoria))]
         public IHttpActionResult GetCategoria(int id)
         {
-            Categoria categoria = db.Categorias.Find(id);
-            if (categoria == null)
+            try
             {
-                return NotFound();
-            }
+                Categoria categoria = (from c in db.Categorias
+                                       where c.Id == id
+                                       select c)
+                                      .Include(e => e.Equipos.Select(i => i.ImagenesEquipo))
+                                      .FirstOrDefault();
 
-            return Ok(categoria);
+                if (categoria == null)
+                {
+                    return NotFound();
+                }
+
+                #region fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
+                foreach (var item in categoria.Equipos)
+                {
+                    ImagenEquipo ultimaImagen = item.ImagenesEquipo.LastOrDefault();
+                    List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
+                    imagenes.Add(ultimaImagen);
+
+                    item.ImagenesEquipo = imagenes;
+                }
+                #endregion
+
+                return Ok(categoria);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }            
         }
 
         // PUT: api/Categorias/5
