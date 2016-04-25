@@ -28,11 +28,20 @@ namespace fepuseAPI.Controllers
         {
             try
             {
-                var tablaPosiciones = (from t in db.EquipoTorneos
-                                       where t.ZonaTorneo.TorneoId == id
-                                       select t)
-                                       .Include(e =>e.Equipo.ImagenesEquipo)
-                                       .OrderByDescending(t => t.Puntos);
+                //var tablaPosiciones = (from t in db.EquipoTorneos
+                //                       where t.ZonaTorneo.TorneoId == id
+                //                       select t)
+                //                       .Include(e =>e.Equipo.ImagenesEquipo)
+                //                       .OrderByDescending(t => t.Puntos)
+                //                       .ToList();
+
+                var tablaPosiciones = (from z in db.ZonaTorneos
+                                       where z.TorneoId == id
+                                       select z)
+                                       .Include(et => et.EquiposTorneo                                           
+                                           .Select(e => e.Equipo.ImagenesEquipo)                                           
+                                           )                                                                              
+                                       .ToList();
 
                 if (tablaPosiciones == null)
                 {
@@ -40,13 +49,36 @@ namespace fepuseAPI.Controllers
                 }
 
                 #region fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
-                foreach (var item in tablaPosiciones)
+                foreach (var zona in tablaPosiciones) //para cada zona agrego los logos actuales de los equipos
                 {
-                    ImagenEquipo ultimaImagen = item.Equipo.ImagenesEquipo.LastOrDefault();
-                    List<ImagenEquipo> imagenes = new List<ImagenEquipo>();
-                    imagenes.Add(ultimaImagen);
+                    #region fpaz: obtengo los logos actuales de los equipos
+                    var equiposTorneo = zona.EquiposTorneo.ToList();
 
-                    item.Equipo.ImagenesEquipo = imagenes;
+                    List<EquipoTorneo> equiposTorneoConImagen = new List<EquipoTorneo>();
+
+                    foreach (var item in equiposTorneo)
+                    {
+                        ImagenEquipo ultimaImagenEquipo = item.Equipo.ImagenesEquipo.LastOrDefault();
+                        List<ImagenEquipo> imagenesEquipo = new List<ImagenEquipo>();
+                        imagenesEquipo.Add(ultimaImagenEquipo);
+
+                        item.Equipo.ImagenesEquipo = imagenesEquipo;
+
+                        equiposTorneoConImagen.Add(item);
+
+                    }
+
+                    zona.EquiposTorneo = equiposTorneoConImagen;
+                    #endregion
+                }
+                #endregion
+
+                #region fpaz: ordeno a los equipos de cada zona de manera descendene segun sus puntos
+                foreach (var zona in tablaPosiciones)
+                {
+                    var tablaZona = zona.EquiposTorneo.OrderByDescending(p => p.Puntos).ToList();
+                    zona.EquiposTorneo = tablaZona;
+
                 }
                 #endregion
 
