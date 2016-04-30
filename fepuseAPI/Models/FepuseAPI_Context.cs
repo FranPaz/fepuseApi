@@ -51,6 +51,13 @@ public class FepuseAPI_Context : IdentityDbContext<ApplicationUser>
     public System.Data.Entity.DbSet<fepuseAPI.Models.Categoria> Categorias { get; set; }
     public System.Data.Entity.DbSet<fepuseAPI.Models.PuestoJugador> PuestosJugadores { get; set; }
 
+    public System.Data.Entity.DbSet<fepuseAPI.Models.ZonaTorneo> ZonaTorneos { get; set; }
+
+    public System.Data.Entity.DbSet<fepuseAPI.Models.Noticia> Noticias { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.NoticiaCategoria> NoticiasCategoria { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.NoticiaLiga> NoticiasLiga { get; set; }
+    public System.Data.Entity.DbSet<fepuseAPI.Models.NoticiaTorneo> NoticiasTorneo { get; set; }
+
 
     #endregion
 
@@ -59,7 +66,7 @@ public class FepuseAPI_Context : IdentityDbContext<ApplicationUser>
         return new FepuseAPI_Context();
     }
 
-    public System.Data.Entity.DbSet<fepuseAPI.Models.ZonaTorneo> ZonaTorneos { get; set; }
+    
 
     
 

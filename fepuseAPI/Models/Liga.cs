@@ -25,7 +25,8 @@ namespace fepuseAPI.Models
         //fpaz: 1 a m  con arbitros (muchos)
         public virtual ICollection<Arbitro> Arbitros { get; set; }
 
-      
+        //fpaz: 1 a m con noticiasLiga (muchos)
+        public virtual ICollection<NoticiaLiga> NoticiasLiga { get; set; }
 
     }
 }

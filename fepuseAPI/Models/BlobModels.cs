@@ -51,4 +51,11 @@ namespace fepuseAPI.Models
         public int EquipoId { get; set; }
         public virtual Equipo Equipo { get; set; }
     }
+
+    public class ImagenNoticia : BlobUploadModel
+    {
+        //fpaz: relacion 1 a m con Noticia (uno)
+        public int NoticiaId { get; set; }
+        public virtual Noticia Noticia { get; set; }
+    }
 }

@@ -31,6 +31,8 @@ namespace fepuseAPI.Models
 
         public virtual ICollection<ZonaTorneo> ZonasTorneo { get; set; }
 
+        //fpaz: 1 a m con noticiasTorneo (muchos)
+        public virtual ICollection<NoticiaTorneo> NoticiasTorneo { get; set; }
 
     }
     public class ZonaTorneo 
