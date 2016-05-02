@@ -17,8 +17,48 @@ namespace fepuseAPI.Controllers
     {
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
+        //[Route("api/Jugadors/jugadoresliga")]
+        public IHttpActionResult GetJugadors(int prmLigaId) // fpaz: lista todos los jugadores de la liga agrupados por categoria
+        {
+            try
+            {
+                var listJugadores = (from c in db.Categorias //obtengo las categorias y todos sus equipos
+                                     where c.LigaId == prmLigaId
+                                     select c)
+                                   .Include(j => j.Jugadores.Select(i => i.ImagenesPersona))
+                                   .ToList();
+
+                if (listJugadores == null)
+                {
+                    return BadRequest("No existen equipos cargados");
+                }
+
+                #region fpaz: para cada Equipo solo muestro la ultima imagen cargada como logo
+                foreach (var categoria in listJugadores)
+                {
+                    foreach (var item in categoria.Jugadores)
+                    {
+                        ImagenPersona ultimaImagen = item.ImagenesPersona.LastOrDefault();
+                        List<ImagenPersona> imagenes = new List<ImagenPersona>();
+                        imagenes.Add(ultimaImagen);
+
+                        item.ImagenesPersona = imagenes;
+                    }
+                }
+                #endregion
+
+                return Ok(listJugadores);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+        }
+
+
         // GET: api/Jugadors
-        public IHttpActionResult GetJugadors(int prmIdEquipo, int prmIdTorneo)
+        public IHttpActionResult GetJugadores(int prmIdEquipo, int prmIdTorneo)
         {
             try
             {
@@ -26,7 +66,7 @@ namespace fepuseAPI.Controllers
                                      where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
                                      select ejt.Jugador)
                                      .Include(j => j.EquiposJugadorTorneos)
-                                     .Include(i=>i.ImagenesPersona)
+                                     .Include(i => i.ImagenesPersona)
                                      .ToList();
 
                 #region fpaz: para cada jugador solo muestro la ultima imagen
@@ -75,31 +115,7 @@ namespace fepuseAPI.Controllers
             return Ok(jugador);
         }
 
-        [Route("api/Jugadors/jugadoresliga")]
-        public IHttpActionResult GetJugadoresLiga(int prmLigaId) // fpaz: lista todos los jugadores de la liga
-        {
-            try
-            {
-                // obtengo los goeadores del torneo
-                List<Jugador> jugadores = (from t in db.EquiposJugadorTorneos
-                                           join l in db.Ligas on t.Torneo.Categoria.LigaId equals l.Id
-                                           where l.Id == prmLigaId
-                                           group t by new
-                                           {
-                                               t.Jugador
-                                           } into g
-                                           select g.Key.Jugador)
-                                               .ToList();
-
-                return Ok(jugadores);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
-
+        
         // PUT: api/Jugadors/5
         [ResponseType(typeof(void))]
         public IHttpActionResult PutJugador(int id, Jugador jugador)
@@ -166,6 +182,7 @@ namespace fepuseAPI.Controllers
                         Matricula = jugador.Matricula,
                         Apodo = jugador.Apodo,
                         Federado = jugador.Federado,
+                        CategoriaId = jugador.CategoriaId,
                         ProfesionId = jugador.ProfesionId,
                         FichaMedica = jugador.FichaMedica,
                         Profesion = (from pro in db.Profesions

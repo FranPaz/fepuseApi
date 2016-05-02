@@ -15,8 +15,7 @@ namespace fepuseAPI.Models
     {
         public int Matricula { get; set; }
         public string Apodo { get; set; }
-        public bool Federado { get; set; }
-        public string Categoria { get; set; }
+        public bool Federado { get; set; }        
         public bool FichaMedica { get; set; }
 
         //fpaz: 1 a m con EquipoJugadorTorneo (muchos)
@@ -30,6 +29,10 @@ namespace fepuseAPI.Models
         //fpaz: 1 a m con Puesto (uno)
         public int? PuestoJugadorId { get; set; }
         public PuestoJugador PuestoJugador { get; set; }
+
+        // 1 a m con Categoria (uno)
+        public int CategoriaId { get; set; }
+        public virtual Categoria Categoria { get; set; }
     }
 
     public class EquipoJugadorTorneo  //clase que va a tener la info sobre en que equipo jugo un jugador y en que torneo
