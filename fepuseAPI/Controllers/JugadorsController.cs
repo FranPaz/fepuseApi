@@ -63,7 +63,7 @@ namespace fepuseAPI.Controllers
             try
             {
                 var listJugadores = (from ejt in db.EquiposJugadorTorneos
-                                     where (ejt.EquipoId == prmIdEquipo) && (ejt.TorneoId == prmIdTorneo)
+                                     where (ejt.EquipoTorneo.EquipoId == prmIdEquipo) && (ejt.EquipoTorneo.ZonaTorneo.TorneoId == prmIdTorneo)
                                      select ejt.Jugador)
                                      .Include(j => j.EquiposJugadorTorneos)
                                      .Include(i => i.ImagenesPersona)
@@ -163,41 +163,42 @@ namespace fepuseAPI.Controllers
 
             try
             {
-                var ejt = new EquipoJugadorTorneo
-                {
-                    EquipoId = (from e in jugador.EquiposJugadorTorneos
-                                select e.EquipoId).FirstOrDefault(),
-                    TorneoId = (from e in jugador.EquiposJugadorTorneos
-                                select e.TorneoId).FirstOrDefault(),
+                //var ejt = new EquipoJugadorTorneo
+                //{
+                //    EquipoId = (from e in jugador.EquiposJugadorTorneos
+                //                select e.EquipoId).FirstOrDefault(),
+                //    TorneoId = (from e in jugador.EquiposJugadorTorneos
+                //                select e.TorneoId).FirstOrDefault(),
 
 
 
-                    Jugador = new Jugador
-                    {
-                        Dni = jugador.Dni,
-                        NombreApellido = jugador.NombreApellido,
-                        Direccion = jugador.Direccion,
-                        Telefono = jugador.Telefono,
-                        Email = jugador.Email,
-                        Matricula = jugador.Matricula,
-                        Apodo = jugador.Apodo,
-                        Federado = jugador.Federado,
-                        CategoriaId = jugador.CategoriaId,
-                        ProfesionId = jugador.ProfesionId,
-                        FichaMedica = jugador.FichaMedica,
-                        Profesion = (from pro in db.Profesions
-                                     where pro.Id == jugador.ProfesionId
-                                     select pro).FirstOrDefault()
-                    }
+                //    Jugador = new Jugador
+                //    {
+                //        Dni = jugador.Dni,
+                //        NombreApellido = jugador.NombreApellido,
+                //        Direccion = jugador.Direccion,
+                //        Telefono = jugador.Telefono,
+                //        Email = jugador.Email,
+                //        Matricula = jugador.Matricula,
+                //        Apodo = jugador.Apodo,
+                //        Federado = jugador.Federado,
+                //        CategoriaId = jugador.CategoriaId,
+                //        ProfesionId = jugador.ProfesionId,
+                //        FichaMedica = jugador.FichaMedica,
+                //        Profesion = (from pro in db.Profesions
+                //                     where pro.Id == jugador.ProfesionId
+                //                     select pro).FirstOrDefault()
+                //    }
 
-                };
+                //};
 
-                db.EquiposJugadorTorneos.Add(ejt);
+                //db.EquiposJugadorTorneos.Add(ejt);
 
-                //db.Jugadors.Add(jugador);
+                db.Jugadors.Add(jugador);
                 db.SaveChanges();
 
-                return Ok(ejt.Jugador);
+                //return Ok(ejt.Jugador);
+                return Ok(jugador);
             }
             catch (Exception ex)
             {

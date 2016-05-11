@@ -33,8 +33,8 @@ namespace fepuseAPI.Controllers
                                                    Goles = g.Sum(p => p.Goles),
                                                    NombreEquipo = (from eq in db.EquiposJugadorTorneos
                                                                    where eq.JugadorId == g.Key.Jugador.Id
-                                                                   && eq.TorneoId == id
-                                                                   select eq.Equipo.Nombre).FirstOrDefault(),
+                                                                   && eq.EquipoTorneo.ZonaTorneo.TorneoId == id
+                                                                   select eq.EquipoTorneo.Equipo.Nombre).FirstOrDefault(),
                                                })
                                                .OrderByDescending(g => g.Goles)
                                                .Take(10)
@@ -56,8 +56,8 @@ namespace fepuseAPI.Controllers
                                                      CantTarjAmarillas = g.Sum(p => p.TarjetasAmarillas),
                                                      NombreEquipo = (from eq in db.EquiposJugadorTorneos
                                                                      where eq.JugadorId == g.Key.Jugador.Id
-                                                                     && eq.TorneoId == id
-                                                                     select eq.Equipo.Nombre).FirstOrDefault(),
+                                                                     && eq.EquipoTorneo.ZonaTorneo.TorneoId == id
+                                                                     select eq.EquipoTorneo.Equipo.Nombre).FirstOrDefault(),
                                                  })
                                                .OrderByDescending(g => g.CantTarjAmarillas)
                                                .Take(10)
@@ -79,8 +79,8 @@ namespace fepuseAPI.Controllers
                                                    CantTarjRojas = g.Sum(p => p.TarjetasRojas),
                                                    NombreEquipo = (from eq in db.EquiposJugadorTorneos
                                                                    where eq.JugadorId == g.Key.Jugador.Id
-                                                                   && eq.TorneoId == id
-                                                                   select eq.Equipo.Nombre).FirstOrDefault(),
+                                                                   && eq.EquipoTorneo.ZonaTorneo.TorneoId == id
+                                                                   select eq.EquipoTorneo.Equipo.Nombre).FirstOrDefault(),
                                                })
                                                .OrderByDescending(g => g.CantTarjRojas)
                                                .Take(10)

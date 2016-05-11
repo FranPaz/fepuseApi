@@ -134,15 +134,31 @@ namespace fepuseAPI.Controllers
         [ResponseType(typeof(EquipoTorneo))]
         public IHttpActionResult PostEquipoTorneo(EquipoTorneo equipoTorneo)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return BadRequest(ModelState);
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                #region para cada jugador de la lista de buena fe actualizo el equipo actual
+                foreach (var item in equipoTorneo.EquiposJugadorTorneos)
+                {
+                    Jugador j = db.Jugadors.Find(item.JugadorId);
+                    j.EquipoId = equipoTorneo.EquipoId;
+                }
+                #endregion
+
+                db.EquipoTorneos.Add(equipoTorneo);
+
+                db.SaveChanges();
+
+                return Ok();
             }
-
-            db.EquipoTorneos.Add(equipoTorneo);
-            db.SaveChanges();
-
-            return CreatedAtRoute("DefaultApi", new { id = equipoTorneo.Id }, equipoTorneo);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }            
         }
 
         // DELETE: api/EquipoTorneos/5
