@@ -35,7 +35,7 @@ namespace fepuseAPI.Models
         public virtual Categoria Categoria { get; set; }
 
         //fpaz; 1 a m con equipo (uno)
-        public int EquipoId { get; set; }
+        public int? EquipoId { get; set; }
         public virtual Equipo Equipo { get; set; }
     }
 
