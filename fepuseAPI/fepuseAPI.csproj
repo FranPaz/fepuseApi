@@ -259,21 +259,9 @@
     <Compile Include="Controllers\TorneosController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Controllers\ZonaTorneosController.cs" />
-    <Compile Include="Migrations\201604211959418_m1.cs" />
-    <Compile Include="Migrations\201604211959418_m1.Designer.cs">
-      <DependentUpon>201604211959418_m1.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201604291936161_m2.cs" />
-    <Compile Include="Migrations\201604291936161_m2.Designer.cs">
-      <DependentUpon>201604291936161_m2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605021839062_m3.cs" />
-    <Compile Include="Migrations\201605021839062_m3.Designer.cs">
-      <DependentUpon>201605021839062_m3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201605021840408_m4.cs" />
-    <Compile Include="Migrations\201605021840408_m4.Designer.cs">
-      <DependentUpon>201605021840408_m4.cs</DependentUpon>
+    <Compile Include="Migrations\201605120011393_Inicial.cs" />
+    <Compile Include="Migrations\201605120011393_Inicial.Designer.cs">
+      <DependentUpon>201605120011393_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\BlobModels.cs" />
     <Compile Include="Models\Categoria.cs" />
@@ -369,17 +357,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201604211959418_m1.resx">
-      <DependentUpon>201604211959418_m1.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201604291936161_m2.resx">
-      <DependentUpon>201604291936161_m2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605021839062_m3.resx">
-      <DependentUpon>201605021839062_m3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201605021840408_m4.resx">
-      <DependentUpon>201605021840408_m4.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201605120011393_Inicial.resx">
+      <DependentUpon>201605120011393_Inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
