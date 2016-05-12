@@ -222,8 +222,8 @@ namespace fepuseAPI.Controllers
 
                     // obetengo el listado de jugadores del equipo local cargados para el torneo en particular
                     var jugadoresLocales = (from j in db.EquiposJugadorTorneos
-                                            where j.TorneoId == fecha.torneoId
-                                            && j.EquipoId == partido.EquipoLocalId
+                                            where j.EquipoTorneo.ZonaTorneo.TorneoId == fecha.torneoId
+                                            && j.EquipoTorneo.EquipoId == partido.EquipoLocalId
                                             select j).ToList();
 
                     foreach (var item in jugadoresLocales)
@@ -232,7 +232,7 @@ namespace fepuseAPI.Controllers
                         {
                             JugadorId = item.JugadorId,
                             PartidoId = partido.Id,
-                            EquipoId = item.EquipoId,
+                            EquipoId = item.EquipoTorneo.EquipoId,
                             Goles = 0,
                             TarjetasAmarillas = 0,
                             TarjetasRojas = 0
@@ -242,8 +242,8 @@ namespace fepuseAPI.Controllers
 
                     // obetengo el listado de jugadores del equipo visitantes cargados para el torneo en particular
                     var jugadoresVisitantes = (from j in db.EquiposJugadorTorneos
-                                               where j.TorneoId == fecha.torneoId
-                                               && j.EquipoId == partido.EquipoVisitanteId
+                                               where j.EquipoTorneo.ZonaTorneo.TorneoId == fecha.torneoId
+                                               && j.EquipoTorneo.EquipoId == partido.EquipoVisitanteId
                                                select j).ToList();
 
                     foreach (var item in jugadoresVisitantes)
@@ -252,7 +252,7 @@ namespace fepuseAPI.Controllers
                         {
                             JugadorId = item.JugadorId,
                             PartidoId = partido.Id,
-                            EquipoId = item.EquipoId,
+                            EquipoId = item.EquipoTorneo.EquipoId,
                             Goles = 0,
                             TarjetasAmarillas = 0,
                             TarjetasRojas = 0
