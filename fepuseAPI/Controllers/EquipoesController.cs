@@ -97,7 +97,7 @@ namespace fepuseAPI.Controllers
                 Equipo equipo = (from e in db.Equipoes
                                      where e.Id == id
                                      select e)
-                                     .Include(j => j.PlantillaActual.Select(s => s))
+                                     .Include(j => j.PlantillaActual)
                                      .Include(i=>i.ImagenesEquipo)
                                      .FirstOrDefault();
                 if (equipo == null)
