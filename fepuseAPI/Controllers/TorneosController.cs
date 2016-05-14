@@ -52,6 +52,45 @@ namespace fepuseAPI.Controllers
             }
         }
 
+[Route("api/Torneos/Categoria")]
+        public IHttpActionResult GetTorneos(int prmIdLiga, int prmIdCategoria) //iafar: devuelve todos los torneos de una liga y una categoria en particular
+        {
+            try
+            {
+                var listTorneos = (from t in db.Torneos
+                                   where t.Categoria.LigaId == prmIdLiga
+                                   && t.Categoria.Id == prmIdCategoria
+                                   select t)
+                                   .ToList();
+
+                if (listTorneos == null)
+                {
+                    return BadRequest("No existen Torneos Cargados para la Liga");
+                }
+
+                #region fpaz: para cada torneo solo muestro la ultima imagen cargada como logo
+                foreach (var item in listTorneos)
+                {
+                    //ImagenTorneo ultimaImagen = item.ImagenesTorneo.LastOrDefault();
+                    //List<ImagenTorneo> imagenes = new List<ImagenTorneo>();
+                    //imagenes.Add(ultimaImagen);
+
+                    item.ImagenesTorneo = null;
+                    //item.Categoria = null;
+                    //item.CategoriaId = 0;
+                }
+                #endregion
+
+                return Ok(listTorneos);
+
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message.ToString());
+            }
+        }
+
+
         // GET: api/Torneos/5
         [ResponseType(typeof(Torneo))]
         public IHttpActionResult GetTorneo(int prmIdLiga, int prmIdTorneo) // fpaz: trae los datos de un torneo en particular
