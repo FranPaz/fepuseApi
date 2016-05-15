@@ -74,7 +74,7 @@ namespace fepuseAPI.Controllers
                 ZonaTorneo zonaTorneo = (from z in db.ZonaTorneos
                                          where z.Id == id
                                          select z)
-                                         .Include(t => t.Torneo)
+                                        .Include(t => t.Torneo)                                        
                                         .Include(e => e.EquiposTorneo
                                             .Select(eq => eq.Equipo.ImagenesEquipo)
                                         )

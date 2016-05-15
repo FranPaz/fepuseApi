@@ -155,11 +155,7 @@ namespace fepuseAPI.Controllers
         // POST: api/Jugadors
         [ResponseType(typeof(Jugador))]
         public IHttpActionResult PostJugador(Jugador jugador)
-        {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
+        {            
 
             try
             {
@@ -193,6 +189,11 @@ namespace fepuseAPI.Controllers
                 //};
 
                 //db.EquiposJugadorTorneos.Add(ejt);
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
 
                 db.Jugadors.Add(jugador);
                 db.SaveChanges();

@@ -17,9 +17,28 @@ namespace fepuseAPI.Controllers
         private FepuseAPI_Context db = new FepuseAPI_Context();
 
         // GET: api/EquipoTorneos
-        public IQueryable<EquipoTorneo> GetEquipoTorneos()
+        public IHttpActionResult GetInfoEquipoTorneo(int prmIdEquipoTorneo) //fpaz: devuelve toda la info de un torneo para el equipo
         {
-            return db.EquipoTorneos;
+            try
+            {
+                var infoEquipoTorneo = (from et in db.EquipoTorneos
+                                       where et.Id == prmIdEquipoTorneo
+                                       select et)
+                                       .Include(z => z.ZonaTorneo)
+                                       .Include(e =>e.Equipo.PlantillaActual)
+                                       .FirstOrDefault();
+
+                if (infoEquipoTorneo == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(infoEquipoTorneo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         // GET: api/EquipoTorneos/5
